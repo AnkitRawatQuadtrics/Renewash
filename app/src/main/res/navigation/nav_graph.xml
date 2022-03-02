@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.quadtric.renewash.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_bookAppointmentFragment"
+            app:destination="@id/bookAppointmentFragment"
+            app:enterAnim="@anim/fad_in"
+            app:exitAnim="@anim/fad_out"
+            app:launchSingleTop="false" />
+        <action
+            android:id="@+id/action_homeFragment_to_giftCardFragment"
+            app:destination="@id/giftCardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookAppointmentFragment"
+        android:name="com.quadtric.renewash.fragments.BookAppointmentFragment"
+        android:label="fragment_book_appointment"
+        tools:layout="@layout/fragment_book_appointment">
+        <action
+            android:id="@+id/action_bookAppointmentFragment_to_vehicleInformationFragment"
+            app:destination="@id/vehicleInformationFragment"
+            app:enterAnim="@anim/fad_in"
+            app:exitAnim="@anim/fad_out" />
+        <argument
+            android:name="id"
+            app:argType="string"
+            android:defaultValue="null" />
+    </fragment>
+    <fragment
+        android:id="@+id/vehicleInformationFragment"
+        android:name="com.quadtric.renewash.fragments.VehicleInformationFragment"
+        android:label="fragment_vehicle_information"
+        tools:layout="@layout/fragment_vehicle_information">
+        <action
+            android:id="@+id/action_vehicleInformationFragment_to_addVehicleDetailFragment"
+            app:destination="@id/addVehicleDetailFragment"
+            app:enterAnim="@anim/fad_in"
+            app:exitAnim="@anim/fad_out" />
+        <argument
+            android:name="vehicle_type"
+            app:argType="string"
+            android:defaultValue="null" />
+    </fragment>
+    <fragment
+        android:id="@+id/addVehicleDetailFragment"
+        android:name="com.quadtric.renewash.fragments.AddVehicleDetailFragment"
+        android:label="fragment_add_vehicle_detail"
+        tools:layout="@layout/fragment_add_vehicle_detail">
+        <action
+            android:id="@+id/action_addVehicleDetailFragment_to_choosePackageFragment"
+            app:destination="@id/choosePackageFragment"
+            app:enterAnim="@anim/fad_in"
+            app:exitAnim="@anim/fad_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/choosePackageFragment"
+        android:name="com.quadtric.renewash.fragments.ChoosePackageFragment"
+        android:label="fragment_choose_package"
+        tools:layout="@layout/fragment_choose_package">
+        <action
+            android:id="@+id/action_choosePackageFragment_to_pickAddOnsFragment"
+            app:destination="@id/pickAddOnsFragment"
+            app:enterAnim="@anim/fad_in"
+            app:exitAnim="@anim/fad_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/pickAddOnsFragment"
+        android:name="com.quadtric.renewash.fragments.PickAddOnsFragment"
+        android:label="fragment_pick_add_ons"
+        tools:layout="@layout/fragment_pick_add_ons">
+        <action
+            android:id="@+id/action_pickAddOnsFragment_to_carWashDateTimeFragment"
+            app:destination="@id/carWashDateTimeFragment"
+            app:enterAnim="@anim/fad_in"
+            app:exitAnim="@anim/fad_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/carWashDateTimeFragment"
+        android:name="com.quadtric.renewash.fragments.CarWashDateTimeFragment"
+        android:label="fragment_car_wash_date_time"
+        tools:layout="@layout/fragment_car_wash_date_time" >
+        <action
+            android:id="@+id/action_carWashDateTimeFragment_to_fillInformationFragment"
+            app:destination="@id/fillInformationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fillInformationFragment"
+        android:name="com.quadtric.renewash.fragments.FillInformationFragment"
+        android:label="fragment_fill_information"
+        tools:layout="@layout/fragment_fill_information" >
+        <action
+            android:id="@+id/action_fillInformationFragment_to_paymentOptionFragment"
+            app:destination="@id/paymentOptionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/paymentOptionFragment"
+        android:name="com.quadtric.renewash.fragments.PaymentOptionFragment"
+        android:label="fragment_payment_option"
+        tools:layout="@layout/fragment_payment_option" >
+        <action
+            android:id="@+id/action_paymentOptionFragment_to_homeFragment2"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@+id/destination_to_pop"
+            app:popUpToInclusive="true"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/giftCardFragment"
+        android:name="com.quadtric.renewash.fragments.GiftCardFragment"
+        android:label="GiftCardFragment" />
+</navigation>

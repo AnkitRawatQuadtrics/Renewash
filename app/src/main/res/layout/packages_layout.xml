@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="6dp">
+
+        <RelativeLayout
+            android:id="@+id/interiorOnlyRelativeOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/ripple"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/imageInteriorRl"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="30dp"
+                android:background="@drawable/light_blue_back">
+
+                <ImageView
+                    android:id="@+id/imagePackage"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/one_time"
+                    tools:ignore="ContentDescription" />
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/packageName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="10dp"
+                android:textStyle="bold"
+                android:layout_toEndOf="@id/imageInteriorRl"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/interior_only"
+                android:textColor="@color/blue"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/servicesTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/packageName"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="25dp"
+                android:layout_toEndOf="@id/imageInteriorRl"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/dashboard_mats_and_seats"
+                android:textColor="@color/blue"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
