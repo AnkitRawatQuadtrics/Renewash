@@ -12,8 +12,10 @@ import com.quadtric.renewash.R
 import com.quadtric.renewash.commonFunctions.Common
 import com.quadtric.renewash.commonFunctions.SharedPreference
 import com.quadtric.renewash.databinding.FragmentFillInformationBinding
+import java.lang.Math.max
 
 
+@Suppress("UNUSED_ANONYMOUS_PARAMETER", "SpellCheckingInspection")
 class FillInformationFragment : Fragment() {
     private lateinit var binding: FragmentFillInformationBinding
 
@@ -37,7 +39,7 @@ class FillInformationFragment : Fragment() {
                 }
                 null
             }
-        binding.phone.filters = arrayOf(filter)
+        binding.phone.filters = arrayOf(filter, InputFilter.LengthFilter(15))
     }
 
 
@@ -71,6 +73,11 @@ class FillInformationFragment : Fragment() {
                 binding.phone.text.toString().isEmpty() -> {
                     binding.phone.error = "Phone Number field is required."
                     Toast.makeText(activity, "Phone Number field is required.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                binding.phone.text.toString().length < 9 -> {
+                    binding.phone.error = "Please Enter Valid Phone Number"
+                    Toast.makeText(activity, "Please Enter Valid Phone Number.", Toast.LENGTH_SHORT)
                         .show()
                 }
                 binding.address.text.toString().isEmpty() -> {

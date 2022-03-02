@@ -13,6 +13,7 @@ import com.quadtric.renewash.apiRelatedFiles.ApiClient
 import com.quadtric.renewash.apiRelatedFiles.ApiInterface
 import com.quadtric.renewash.commonFunctions.Common
 import com.quadtric.renewash.models.addonModels.AddonPojo
+import com.quadtric.renewash.models.subscriptionModels.SubscriptionPojo
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -71,6 +72,63 @@ class AddonsViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<AddonPojo?>, t: Throwable) {
+                Log.e("TAG", "onFailure: " + t.message)
+                Common.dismissLoadingProgress()
+                (ctx as Activity).onBackPressed()
+            }
+        })
+    }
+
+    private val subscriptionPojo: MutableLiveData<SubscriptionPojo> by lazy {
+        MutableLiveData<SubscriptionPojo>().also {
+            loadSubscription(it)
+        }
+    }
+
+    fun getSubscription(id: String,context: Context): LiveData<SubscriptionPojo> {
+        packageId = id
+        ctx = context
+        return subscriptionPojo
+    }
+
+    /** CALL API HERE */
+    private fun loadSubscription(mutableLiveData: MutableLiveData<SubscriptionPojo>) {
+        Common.showLoadingProgress(ctx as Activity)
+        // Do an asynchronous operation to fetch users.
+        val apiInterface: ApiInterface = ApiClient.getClient()!!.create(ApiInterface::class.java)
+        apiInterface.getSubscription(packageId).enqueue(object :
+            Callback<SubscriptionPojo?> {
+            override fun onResponse(
+                call: Call<SubscriptionPojo?>,
+                response: Response<SubscriptionPojo?>
+            ) {
+                when {
+                    response.code() == 200 -> {
+                        Common.dismissLoadingProgress()
+                        mutableLiveData.value = response.body()
+                        Log.e("VT_RESPONSE", Gson().toJson(response.body()))
+                    }
+                    response.code() == 401 -> {
+                        Common.dismissLoadingProgress()
+                        Log.e("VT_RESPONSE", Gson().toJson(response.body()))
+                        Toast.makeText(ctx, response.message(),Toast.LENGTH_SHORT).show()
+                    }
+                    response.code() == 400 -> {
+                        Common.dismissLoadingProgress()
+                        Log.e("RESPONSE_MESSAGE", response.message())
+                        Toast.makeText(ctx, response.message(),Toast.LENGTH_SHORT).show()
+                        return
+                    }
+                    else -> {
+                        Common.dismissLoadingProgress()
+                        Log.e("RESPONSE_MESSAGE", response.message())
+                        Toast.makeText(ctx, response.message(),Toast.LENGTH_SHORT).show()
+                        return
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<SubscriptionPojo?>, t: Throwable) {
                 Log.e("TAG", "onFailure: " + t.message)
                 Common.dismissLoadingProgress()
                 (ctx as Activity).onBackPressed()

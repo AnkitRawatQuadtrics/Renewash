@@ -71,6 +71,7 @@
             app:destination="@id/pickAddOnsFragment"
             app:enterAnim="@anim/fad_in"
             app:exitAnim="@anim/fad_out" />
+
     </fragment>
     <fragment
         android:id="@+id/pickAddOnsFragment"
@@ -82,6 +83,9 @@
             app:destination="@id/carWashDateTimeFragment"
             app:enterAnim="@anim/fad_in"
             app:exitAnim="@anim/fad_out" />
+        <action
+            android:id="@+id/action_pickAddOnsFragment_to_selectSubscriptionTime"
+            app:destination="@id/selectSubscriptionTime" />
     </fragment>
     <fragment
         android:id="@+id/carWashDateTimeFragment"
@@ -117,4 +121,8 @@
         android:id="@+id/giftCardFragment"
         android:name="com.quadtric.renewash.fragments.GiftCardFragment"
         android:label="GiftCardFragment" />
+    <fragment
+        android:id="@+id/selectSubscriptionTime"
+        android:name="com.quadtric.renewash.fragments.SelectSubscriptionTime"
+        android:label="SelectSubscriptionTime" />
 </navigation>

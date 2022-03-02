@@ -1,6 +1,5 @@
 package com.quadtric.renewash.fragments
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,7 +10,6 @@ import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import com.quadtric.renewash.commonFunctions.Common
 import com.quadtric.renewash.commonFunctions.SharedPreference
 import com.quadtric.renewash.databinding.FragmentPaymentOptionBinding
@@ -128,57 +126,137 @@ class PaymentOptionFragment : Fragment() {
             activity?.onBackPressed()
         }
         binding.applyCoupon.setOnClickListener {
-            Toast.makeText(requireContext(), "Coming Soon!!", Toast.LENGTH_SHORT).show()
+            if (binding.giftCardNumber.text.toString().isEmpty()) {
+                Toast.makeText(requireContext(), "Enter Gift Card", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                giftCardBuilder.append(binding.giftCardNumber.text.toString() + ",")
+                couponCode = giftCardBuilder.toString().dropLast(1)
+                model.getMutableData(requireContext(),couponCode)
+                    .observe(viewLifecycleOwner, Observer<ApplyCouponPojo?> { model ->
+                        if (model.data.size != 0) {
+                            binding.giftCardNumber.setText("")
+                            for (i in 0 until model.data.size) {
+                                SharedPreference.setStringPref(
+                                    requireContext(),
+                                    SharedPreference.coupon_price,
+                                    model.data[i].purchase_amount
+                                )
+                                SharedPreference.setStringPref(
+                                    requireContext(),
+                                    SharedPreference.gift_amount,
+                                    model.data[i].purchase_amount
+                                )
+                                SharedPreference.setStringPref(
+                                    requireContext(),
+                                    SharedPreference.gift_no,
+                                    model.data[i].gift_no
+                                )
+                            }
+                            if (SharedPreference.getStringPref(requireContext(), "total")!!
+                                    .toInt() > SharedPreference.getStringPref(
+                                    requireContext(),
+                                    "coupon_price"
+                                )!!
+                                    .toInt()
+                            ) {
+                                finalAMOUNT =
+                                    SharedPreference.getStringPref(requireContext(), "total")!!
+                                        .toInt() - SharedPreference.getStringPref(
+                                        requireContext(),
+                                        "coupon_price"
+                                    )!!
+                                        .toInt()
 
-            /* if (binding.giftCardNumber.text.toString().isEmpty()) {
-                 Toast.makeText(requireContext(), "Enter Gift Card", Toast.LENGTH_SHORT)
-                     .show()
-             } else {
-                 giftCardBuilder.append(binding.giftCardNumber.text.toString() + ",")
-                 couponCode = giftCardBuilder.toString().dropLast(1)
-                 model.applyCoupon(
-                     couponCode,
-                     requireContext(),
-                     requireView()
-                 ).observe(viewLifecycleOwner, Observer<ApplyCouponPojo> { model ->
-                     // update UI
-                     if (model.data.size!=0) {
-                         for (i in 0 until model.data.size) {
-                             SharedPreference.setStringPref(
-                                 requireContext(),
-                                 SharedPreference.coupon_price,
-                                 model.data[i].purchase_amount
-                             )
-                             SharedPreference.setStringPref(
-                                 requireContext(),
-                                 SharedPreference.gift_amount,
-                                 model.data[i].purchase_amount
-                             )
-                             SharedPreference.setStringPref(
-                                 requireContext(),
-                                 SharedPreference.gift_no,
-                                 model.data[i].gift_no
-                             )
-                         }
-                         finalAMOUNT = SharedPreference.getStringPref(requireContext(), "total")!!
-                             .toInt() - SharedPreference.getStringPref(
-                             requireContext(),
-                             "coupon_price"
-                         )!!
-                             .toInt()
-                         SharedPreference.setStringPref(
-                             requireContext(),
-                             SharedPreference.total,
-                             finalAMOUNT.toString()
-                         )
-                         Log.e("finalAMOUNT", finalAMOUNT.toString())
-                         Log.e("PAYMENT_DATA", model.message.toString())
-                     }else{
-                         Toast.makeText(requireContext(),"Coupon Code is Expired",Toast.LENGTH_SHORT).show()
-                     }
-                 })
-             }*/
+                            } else {
+                                finalAMOUNT = SharedPreference.getStringPref(
+                                    requireContext(),
+                                    "coupon_price"
+                                )!!
+                                    .toInt() - SharedPreference.getStringPref(
+                                    requireContext(), "total"
+                                )!!.toInt()
+                            }
+                            SharedPreference.setStringPref(
+                                requireContext(),
+                                SharedPreference.total,
+                                finalAMOUNT.toString()
+                            )
+                            Log.e("finalAMOUNT", finalAMOUNT.toString())
+                            Log.e("PAYMENT_DATA", model.message.toString())
+                        } else {
+                            Toast.makeText(
+                                requireContext(),
+                                "Coupon Code is Expired",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    })
+            }
         }
+/*
+                model.applyCoupon(couponCode, requireContext(), requireView()).observe(viewLifecycleOwner, Observer<ApplyCouponPojo> { model ->
+                        // update UI
+                        if (model.data.size != 0) {
+                            for (i in 0 until model.data.size) {
+                                SharedPreference.setStringPref(
+                                    requireContext(),
+                                    SharedPreference.coupon_price,
+                                    model.data[i].purchase_amount
+                                )
+                                SharedPreference.setStringPref(
+                                    requireContext(),
+                                    SharedPreference.gift_amount,
+                                    model.data[i].purchase_amount
+                                )
+                                SharedPreference.setStringPref(
+                                    requireContext(),
+                                    SharedPreference.gift_no,
+                                    model.data[i].gift_no
+                                )
+                            }
+                            if (SharedPreference.getStringPref(requireContext(), "total")!!
+                                    .toInt() > SharedPreference.getStringPref(
+                                    requireContext(),
+                                    "coupon_price"
+                                )!!
+                                    .toInt()
+                            ) {
+                                finalAMOUNT =
+                                    SharedPreference.getStringPref(requireContext(), "total")!!
+                                        .toInt() - SharedPreference.getStringPref(
+                                        requireContext(),
+                                        "coupon_price"
+                                    )!!
+                                        .toInt()
+
+                            } else {
+                                finalAMOUNT = SharedPreference.getStringPref(
+                                    requireContext(),
+                                    "coupon_price"
+                                )!!
+                                    .toInt() - SharedPreference.getStringPref(
+                                    requireContext(), "total"
+                                )!!.toInt()
+                            }
+                            SharedPreference.setStringPref(
+                                requireContext(),
+                                SharedPreference.total,
+                                finalAMOUNT.toString()
+                            )
+                            Log.e("finalAMOUNT", finalAMOUNT.toString())
+                            Log.e("PAYMENT_DATA", model.message.toString())
+                        } else {
+                            Toast.makeText(
+                                requireContext(),
+                                "Coupon Code is Expired",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    })
+*/
+
+
         binding.submitButton.setOnClickListener {
             if (Common.checkForInternet(requireContext())) {
                 when {
@@ -245,8 +323,7 @@ class PaymentOptionFragment : Fragment() {
                 }
             } else {
                 Toast.makeText(
-                    requireContext(),
-                    "Please Check Your Internet Connection.",
+                    requireContext(), "Please Check Your Internet Connection.",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -263,18 +340,13 @@ class PaymentOptionFragment : Fragment() {
                 requireActivity(),
                 SharedPreference.getStringPref(requireActivity(), SharedPreference.vehicle_type)
                     .toString(),
-                SharedPreference.getStringPref(
-                    requireActivity(),
-                    SharedPreference.vehicle_package
-                ).toString(),
+                SharedPreference.getStringPref(requireActivity(), SharedPreference.vehicle_package)
+                    .toString(),
                 SharedPreference.getStringPref(requireActivity(), SharedPreference.service_name)
                     .toString(),
-                SharedPreference.getStringPref(requireActivity(), SharedPreference.date)
-                    .toString(),
-                SharedPreference.getStringPref(requireActivity(), SharedPreference.time)
-                    .toString(),
-                SharedPreference.getStringPref(requireActivity(), SharedPreference.total)
-                    .toString()
+                SharedPreference.getStringPref(requireActivity(), SharedPreference.date).toString(),
+                SharedPreference.getStringPref(requireActivity(), SharedPreference.time).toString(),
+                SharedPreference.getStringPref(requireActivity(), SharedPreference.total).toString()
             )
         }
     }

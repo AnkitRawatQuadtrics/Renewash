@@ -9,23 +9,18 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
 import com.quadtric.renewash.R
 import com.quadtric.renewash.apiRelatedFiles.ApiClient
 import com.quadtric.renewash.apiRelatedFiles.ApiInterface
 import com.quadtric.renewash.commonFunctions.Common
-import com.quadtric.renewash.commonFunctions.SharedPreference
-import com.quadtric.renewash.commonFunctions.SharedPreference.Companion.coupon_price
-import com.quadtric.renewash.fragments.PaymentOptionFragmentDirections
 import com.quadtric.renewash.models.applyCouponModel.ApplyCouponPojo
 import com.quadtric.renewash.models.fillinformationModels.CommonPojo
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class FillInformationViewModel : ViewModel() {
     @SuppressLint("StaticFieldLeak")
@@ -109,11 +104,55 @@ class FillInformationViewModel : ViewModel() {
 
     private lateinit var couponCode: String
     private val applyCouponPojo: MutableLiveData<ApplyCouponPojo> by lazy {
-        MutableLiveData<ApplyCouponPojo>().also {
-            applyCouponApi(it)
-        }
+        MutableLiveData<ApplyCouponPojo>().also { applyCouponApi(it) }
     }
+    fun getMutableData(ctx:Context,couponCode: String?): MutableLiveData<ApplyCouponPojo?> {
+        val mutableLiveData: MutableLiveData<ApplyCouponPojo?> = MutableLiveData<ApplyCouponPojo?>()
+        val apiInterface: ApiInterface = ApiClient.getClient()!!.create(ApiInterface::class.java)
+        val call: Call<ApplyCouponPojo> = apiInterface.applyCouponApi(couponCode)
+        call.enqueue(object : Callback<ApplyCouponPojo?> {
+            override fun onResponse(
+                call: Call<ApplyCouponPojo?>,
+                response: Response<ApplyCouponPojo?>
+            ) {
+                when {
+                    response.code() == 200 -> {
+                        Common.dismissLoadingProgress()
+                        mutableLiveData.value = response.body()
+                        Log.e("VT_RESPONSE", Gson().toJson(response.body()))
+                        Toast.makeText(ctx, response.body()!!.message, Toast.LENGTH_SHORT).show()
 
+                    }
+                    response.code() == 401 -> {
+                        Common.dismissLoadingProgress()
+                        Log.e("VT_RESPONSE", Gson().toJson(response.body()))
+                        Toast.makeText(ctx, response.message(), Toast.LENGTH_SHORT).show()
+                    }
+                    response.code() == 400 -> {
+                        Common.dismissLoadingProgress()
+                        Log.e("RESPONSE_MESSAGE", response.message())
+                        Toast.makeText(ctx, response.message(), Toast.LENGTH_SHORT).show()
+                        return
+                    }
+                    else -> {
+                        Common.dismissLoadingProgress()
+                        Log.e("RESPONSE_MESSAGE", response.message())
+                        Toast.makeText(ctx, response.message(), Toast.LENGTH_SHORT).show()
+                        return
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ApplyCouponPojo?>, t: Throwable) {
+                val signInResponse = ApplyCouponPojo()
+                Common.dismissLoadingProgress()
+                Log.e("TAG", "onFailure: " + t.message)
+                (ctx as Activity).onBackPressed()
+                mutableLiveData.value = signInResponse
+            }
+        })
+        return mutableLiveData
+    }
     fun applyCoupon(
         coupon: String,
         context: Context,
@@ -125,7 +164,7 @@ class FillInformationViewModel : ViewModel() {
         return applyCouponPojo
     }
 
-    private fun applyCouponApi(mutableLiveData: MutableLiveData<ApplyCouponPojo>) {
+     private fun applyCouponApi(mutableLiveData: MutableLiveData<ApplyCouponPojo>) {
         Common.showLoadingProgress(ctx as Activity)
         // Do an asynchronous operation to fetch users.
         val apiInterface: ApiInterface = ApiClient.getClient()!!.create(ApiInterface::class.java)

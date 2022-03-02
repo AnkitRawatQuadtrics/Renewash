@@ -28,6 +28,7 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
+                android:id="@+id/headerTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -50,7 +51,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/pickAddOnTv"
+                    android:id="@+id/pickTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"

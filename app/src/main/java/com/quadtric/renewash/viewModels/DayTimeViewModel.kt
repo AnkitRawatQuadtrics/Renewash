@@ -12,67 +12,66 @@ import com.google.gson.Gson
 import com.quadtric.renewash.apiRelatedFiles.ApiClient
 import com.quadtric.renewash.apiRelatedFiles.ApiInterface
 import com.quadtric.renewash.commonFunctions.Common
-import com.quadtric.renewash.models.packageModel.PackagePojo
+import com.quadtric.renewash.models.dayTimeModels.DayTimePojo
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PackagesViewModel : ViewModel() {
+class DayTimeViewModel : ViewModel() {
     @SuppressLint("StaticFieldLeak")
-    private lateinit var ctx:Context
-    private val packagePojo: MutableLiveData<PackagePojo> by lazy {
-        MutableLiveData<PackagePojo>().also {
+    private lateinit var ctx: Context
+    private val dayTimePojo: MutableLiveData<DayTimePojo> by lazy {
+        MutableLiveData<DayTimePojo>().also {
             loadPackages(it)
         }
     }
 
-    fun getPackages(context: Context): LiveData<PackagePojo> {
+    fun getDayDate(context: Context): LiveData<DayTimePojo> {
         ctx = context
-        return packagePojo
+        return dayTimePojo
     }
 
     /** CALL API HERE */
-    private fun loadPackages(mutableLiveData: MutableLiveData<PackagePojo>) {
+    private fun loadPackages(mutableLiveData: MutableLiveData<DayTimePojo>) {
         Common.showLoadingProgress(ctx as Activity)
         // Do an asynchronous operation to fetch users.
         val apiInterface: ApiInterface = ApiClient.getClient()!!.create(ApiInterface::class.java)
-        apiInterface.getPackages().enqueue(object :
-            Callback<PackagePojo?> {
+        apiInterface.getDayTime().enqueue(object :
+            Callback<DayTimePojo?> {
             override fun onResponse(
-                call: Call<PackagePojo?>,
-                response: Response<PackagePojo?>
+                call: Call<DayTimePojo?>,
+                response: Response<DayTimePojo?>
             ) {
                 when {
                     response.code() == 200 -> {
                         Common.dismissLoadingProgress()
                         mutableLiveData.value = response.body()
-                        Log.e("PACKAGE_RESPONSE", Gson().toJson(response.body()))
                     }
                     response.code() == 401 -> {
                         Common.dismissLoadingProgress()
-                        Log.e("PACKAGE_RESPONSE", Gson().toJson(response.body()))
-                        Toast.makeText(ctx, response.message(),Toast.LENGTH_SHORT).show()
+                        Log.e("VT_RESPONSE", Gson().toJson(response.body()))
+                        Toast.makeText(ctx, response.message(), Toast.LENGTH_SHORT).show()
                     }
                     response.code() == 400 -> {
                         Common.dismissLoadingProgress()
                         Log.e("RESPONSE_MESSAGE", response.message())
-                        Toast.makeText(ctx, response.message(),Toast.LENGTH_SHORT).show()
+                        Toast.makeText(ctx, response.message(), Toast.LENGTH_SHORT).show()
                         return
                     }
                     else -> {
                         Common.dismissLoadingProgress()
                         Log.e("RESPONSE_MESSAGE", response.message())
-                        Toast.makeText(ctx, response.message(),Toast.LENGTH_SHORT).show()
+                        Toast.makeText(ctx, response.message(), Toast.LENGTH_SHORT).show()
                         return
                     }
                 }
             }
 
-            override fun onFailure(call: Call<PackagePojo?>, t: Throwable) {
+            override fun onFailure(call: Call<DayTimePojo?>, t: Throwable) {
                 Log.e("TAG", "onFailure: " + t.message)
                 (ctx as Activity).onBackPressed()
-
             }
         })
     }
 }
+

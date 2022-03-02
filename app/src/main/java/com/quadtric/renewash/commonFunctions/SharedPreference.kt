@@ -28,6 +28,8 @@ class SharedPreference {
         var service_id: String = "service_id"
         var package_id: String = "package_id"
         var service_name: String = "service_name"
+        var subscription_name: String = "subscription_name"
+        var subscription_price: String = "subscription_price"
         const val PREF_NAME: String = "CarWashApp"
         const val PRIVATE_MODE: Int = 0
 

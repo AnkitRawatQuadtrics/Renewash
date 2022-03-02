@@ -50,7 +50,7 @@ class AddVehicleDetailFragment : Fragment() {
                 }
             })
         }else{
-            Toast.makeText(ctx,"Please Check Your Internet Connection.",Toast.LENGTH_SHORT).show()
+            Toast.makeText(ctx,"Please Check Your Internet Connection",Toast.LENGTH_SHORT).show()
         }
 
         return binding.root
@@ -154,6 +154,4 @@ class AddVehicleDetailFragment : Fragment() {
         })
         popupMenu.show()
     }
-
-
 }

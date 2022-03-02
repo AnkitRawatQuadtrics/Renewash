@@ -33,7 +33,8 @@ class BookAppointmentFragment : Fragment() {
                 .navigate(R.id.action_bookAppointmentFragment_to_vehicleInformationFragment)
         }
         binding.subscriptionLinear.setOnClickListener {
-           Toast.makeText(requireContext(),"Coming Soon!!",Toast.LENGTH_SHORT).show()
+            Navigation.findNavController(requireView())
+                .navigate(R.id.action_bookAppointmentFragment_to_vehicleInformationFragment)
         }
     }
 

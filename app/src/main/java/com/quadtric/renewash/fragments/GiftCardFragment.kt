@@ -13,7 +13,6 @@ import androidx.lifecycle.Observer
 import com.quadtric.renewash.commonFunctions.Common
 import com.quadtric.renewash.databinding.FragmentGiftCardBinding
 import com.quadtric.renewash.models.fillinformationModels.CommonPojo
-import com.quadtric.renewash.models.pamentTypeModel.PaymentTypeData
 import com.quadtric.renewash.viewModels.PurchaseGiftCardViewModel
 
 
@@ -77,23 +76,34 @@ class GiftCardFragment : Fragment() {
             when {
                 binding.amountTextView.text.toString().isEmpty() -> {
                     binding.amountTextView.error = "Amount field is required."
+                    Toast.makeText(activity, "Amount field is required.", Toast.LENGTH_SHORT).show()
                 }
                 binding.yourName.text.toString().isEmpty() -> {
                     binding.yourName.error = "Your Name field is required."
+                    Toast.makeText(activity, "Your Name field is required.", Toast.LENGTH_SHORT)
+                        .show()
                 }
                 binding.yourEmail.text.toString().isEmpty() -> {
                     binding.yourEmail.error = "Your Email field is required."
+                    Toast.makeText(activity, "Your Email field is required.", Toast.LENGTH_SHORT)
+                        .show()
                 }
                 !Common.isValidEmail(binding.yourEmail.text.toString()) -> {
                     binding.yourEmail.error = "Please Enter Valid Email."
-                    Toast.makeText(activity, "Please Enter Valid Email.", Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(activity, "Please Enter Valid Email.", Toast.LENGTH_SHORT).show()
                 }
                 binding.recipientsName.text.toString().isEmpty() -> {
                     binding.recipientsName.error = "Recipients Name is required."
+                    Toast.makeText(activity, "Recipients Name is required.", Toast.LENGTH_SHORT)
+                        .show()
                 }
                 binding.recipientsEmail.text.toString().isEmpty() -> {
                     binding.recipientsEmail.error = "Recipients Email field is required."
+                    Toast.makeText(
+                        activity,
+                        "Recipients Email field is required.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
                 !Common.isValidEmail(binding.recipientsEmail.text.toString()) -> {
                     binding.recipientsEmail.error = "Please Enter Valid Recipients Email."
@@ -101,23 +111,34 @@ class GiftCardFragment : Fragment() {
                         activity,
                         "Please Enter Valid Recipients Email.",
                         Toast.LENGTH_SHORT
-                    )
-                        .show()
+                    ).show()
                 }
                 binding.specialMessage.text.toString().isEmpty() -> {
                     binding.specialMessage.error = "Special Message field is required."
+                    Toast.makeText(
+                        activity,
+                        "Special Message field is required.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
                 binding.cardNumber.text.toString().isEmpty() -> {
                     binding.cardNumber.error = "Card Number field is required."
+                    Toast.makeText(activity, "Card Number field is required.", Toast.LENGTH_SHORT)
+                        .show()
                 }
                 binding.expiryMonth.text.toString().isEmpty() -> {
                     binding.expiryMonth.error = "Expiry Month field is required."
+                    Toast.makeText(activity, "Expiry Month field is required.", Toast.LENGTH_SHORT)
+                        .show()
                 }
                 binding.expiryYear.text.toString().isEmpty() -> {
                     binding.expiryYear.error = "Expiry Year field is required."
+                    Toast.makeText(activity, "Expiry Year field is required.", Toast.LENGTH_SHORT)
+                        .show()
                 }
                 binding.cvv.text.toString().isEmpty() -> {
                     binding.cvv.error = "Cvv field is required."
+                    Toast.makeText(activity, "Cvv field is required.", Toast.LENGTH_SHORT).show()
                 }
                 else -> {
                     if (giftAmount == "Custom") {

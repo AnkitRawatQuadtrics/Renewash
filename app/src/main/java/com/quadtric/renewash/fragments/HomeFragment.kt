@@ -14,6 +14,7 @@ import com.quadtric.renewash.commonFunctions.SharedPreference.Companion.PREF_NAM
 import com.quadtric.renewash.databinding.FragmentHomeBinding
 
 
+@Suppress("UNUSED_ANONYMOUS_PARAMETER")
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     override fun onCreateView(

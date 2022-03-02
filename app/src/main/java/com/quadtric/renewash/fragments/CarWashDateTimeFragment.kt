@@ -74,6 +74,7 @@ class CarWashDateTimeFragment : Fragment(), DayDateAdapter.DateClick {
         binding.timeRecyclerView.adapter = timeAdapter
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun callTimeAdapter(list: ArrayList<TimeData>) {
         binding.timeRecyclerView.post {
             timeAdapter.timeData = list
