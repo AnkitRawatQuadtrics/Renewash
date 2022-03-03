@@ -25,6 +25,7 @@ class SharedPreference {
         var make: String = "make"
         var model: String = "model"
         var plate_number: String = "plate_number"
+        var qt_type: String = "qt_type"
         var service_id: String = "service_id"
         var package_id: String = "package_id"
         var service_name: String = "service_name"

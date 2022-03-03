@@ -17,8 +17,7 @@
             android:layout_width="250dp"
             android:layout_height="150dp"
             android:layout_centerInParent="true"
-            android:src="@drawable/logo"
-            app:tint="@color/white"
+            android:src="@drawable/white_renewash_logo"
             tools:ignore="ContentDescription" />
 
     </RelativeLayout>
@@ -185,6 +184,19 @@
                 app:tint="@color/grey"
                 tools:ignore="ContentDescription" />
         </LinearLayout>
-
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/loginTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="30dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/login_now"
+        android:textColor="@color/blue"
+        android:textSize="16sp" />
+
 </RelativeLayout>

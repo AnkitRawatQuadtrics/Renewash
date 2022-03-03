@@ -7,7 +7,10 @@
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/drawable/bg_gradient.xml" value="0.1" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/drawable/bottomsheet_back.xml" value="0.1" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/drawable/button_back.xml" value="0.1" />
+        <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/drawable/edittext_back.xml" value="0.1" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/drawable/light_blue_back.xml" value="0.2085" />
+        <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/drawable/light_blue_circle.xml" value="0.1" />
+        <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/drawable/login_screen_white_curved_back.xml" value="0.133" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/drawable/ripple.xml" value="0.133" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/drawable/ripple_white.xml" value="0.1" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/drawable/selected_date.xml" value="0.208" />
@@ -25,13 +28,19 @@
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/dlg_progress.xml" value="0.28986746472851643" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/fragment_add_vehicle_detail.xml" value="0.28986746472851643" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/fragment_book_appointment.xml" value="0.28986746472851643" />
-        <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/fragment_car_wash_date_time.xml" value="0.18" />
+        <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/fragment_car_wash_date_time.xml" value="0.25" />
+        <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/fragment_change_password.xml" value="0.2868747327917914" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/fragment_choose_package.xml" value="0.28986746472851643" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/fragment_fill_information.xml" value="0.28986746472851643" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/fragment_gift_card.xml" value="0.25" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/fragment_home.xml" value="0.28986746472851643" />
+        <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/fragment_login.xml" value="0.25" />
+        <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/fragment_logins.xml" value="0.2832418742085268" />
+        <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/fragment_otp_verification.xml" value="0.2868747327917914" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/fragment_payment_option.xml" value="0.33" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/fragment_pick_add_ons.xml" value="0.14322359982898675" />
+        <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/fragment_sign_in.xml" value="0.25" />
+        <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/fragment_sign_up.xml" value="0.2868747327917914" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/fragment_subscription_time.xml" value="0.2894399315946986" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/fragment_vehicle_information.xml" value="0.28986746472851643" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/packages_layout.xml" value="0.24374420759962928" />
@@ -40,6 +49,8 @@
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/time_back_selected.xml" value="0.28730226592560926" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/time_layout.xml" value="0.2868747327917914" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/vehicle_type_layout.xml" value="0.28986746472851643" />
+        <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.169" />
+        <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.169" />
         <entry key="..\:/Users/dheer/Desktop/Renewash/app/src/main/res/drawable/appointment_type_back.xml" value="0.3435" />
         <entry key="..\:/Users/dheer/Desktop/Renewash/app/src/main/res/drawable/blue_background.xml" value="0.15" />
         <entry key="..\:/Users/dheer/Desktop/Renewash/app/src/main/res/drawable/light_blue_back.xml" value="0.3435" />

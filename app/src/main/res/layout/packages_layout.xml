@@ -63,11 +63,23 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="25dp"
+                android:layout_toStartOf="@+id/priceTextView"
                 android:layout_toEndOf="@id/imageInteriorRl"
                 android:fontFamily="@font/poppins_medium"
                 android:text="@string/dashboard_mats_and_seats"
                 android:textColor="@color/blue"
                 android:textSize="12sp" />
+            <TextView
+                android:id="@+id/priceTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/packageName"
+                android:layout_marginEnd="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/blue"
+                android:textSize="14sp" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

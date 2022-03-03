@@ -50,7 +50,7 @@ internal class AddonAdapter(
     @SuppressLint("CheckResult", "SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.addonsCheckbox.text = addonData[position].serName
-        holder.totalPrice.text = addonData[position].serPrice + "$"
+        holder.totalPrice.text = addonData[position].serPrice
 
         if (addonData[position].isChecked) {
             holder.addonsCheckbox.isChecked = true

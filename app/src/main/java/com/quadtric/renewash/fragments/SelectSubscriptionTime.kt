@@ -26,18 +26,19 @@ class SelectSubscriptionTime : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSubscriptionTimeBinding.inflate(layoutInflater)
+        model.getDayDate(requireContext())
+            .observe(viewLifecycleOwner, Observer<DayTimePojo> { model ->
+                binding.dayTextView.setOnClickListener {
+                    // update UI
+                    showDays(model.data)
+                }
+            })
         clicks()
         return binding.root
     }
 
     private fun clicks() {
-        binding.dayTextView.setOnClickListener {
-            model.getDayDate(requireContext())
-                .observe(viewLifecycleOwner, Observer<DayTimePojo> { model ->
-                    // update UI
-                    showDays(model.data)
-                })
-        }
+
         binding.timeTextView.setOnClickListener {
             if (timeList.isNotEmpty()) {
                 showTime(timeList)
@@ -57,10 +58,14 @@ class SelectSubscriptionTime : Fragment() {
         }
         popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
             binding.dayTextView.text = item.title.toString()
-            val paymentType = item.title.toString()
-            val paymentId = item.itemId
-            Log.e("dcfdfscsaas", paymentId.toString())
-            timeList = data[0].timeduration
+            binding.timeTextView.text = ""
+            for (j in data.indices) {
+                if (data[j].tDay!! == item.title) {
+                    Log.e("position", j.toString())
+                    timeList = data[j].timeduration
+                }
+            }
+
             true
         })
         popupMenu.show()
@@ -74,12 +79,8 @@ class SelectSubscriptionTime : Fragment() {
         }
         popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
             binding.timeTextView.text = item.title.toString()
-            val paymentType = item.title.toString()
             true
         })
         popupMenu.show()
-
     }
-
-
 }

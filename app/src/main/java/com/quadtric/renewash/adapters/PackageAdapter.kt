@@ -24,6 +24,7 @@ internal class PackageAdapter(
     internal inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var packageName: TextView = view.findViewById(R.id.packageName)
         var servicesTextView: TextView = view.findViewById(R.id.servicesTextView)
+        var priceTextView: TextView = view.findViewById(R.id.priceTextView)
         var packageLayout: RelativeLayout = view.findViewById(R.id.interiorOnlyRelativeOut)
     }
 
@@ -34,7 +35,7 @@ internal class PackageAdapter(
         return MyViewHolder(itemView)
     }
 
-    @SuppressLint("CheckResult")
+    @SuppressLint("CheckResult", "SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val serviceBuilder = StringBuilder()
         for (i in 0 until packageData[position].serviceList.size) {
@@ -42,6 +43,7 @@ internal class PackageAdapter(
         }
         val services: String = serviceBuilder.toString().dropLast(1)
         holder.servicesTextView.text = services
+        holder.priceTextView.text = packageData[position].pPrice+"$"
         holder.packageName.text = packageData[position].pName
 
         holder.packageLayout.setOnClickListener {

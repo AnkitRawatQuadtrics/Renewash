@@ -67,5 +67,17 @@ ApiInterface {
         @FieldMap map: Map<String,String>
     ): Call<CommonPojo>?
 
+    @POST("/renewashN/api/signup")
+    @FormUrlEncoded
+    fun signUp(
+        @FieldMap map: Map<String,String>
+    ): Call<CommonPojo>?
+
+    @POST("/renewashN/api/forgort")
+    @FormUrlEncoded
+    fun forgotPassword(
+        @FieldMap map: Map<String,String>
+    ): Call<CommonPojo>?
+
 }
 

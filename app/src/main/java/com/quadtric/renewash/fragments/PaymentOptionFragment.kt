@@ -109,7 +109,7 @@ class PaymentOptionFragment : Fragment() {
         map["model"] = SharedPreference.getStringPref(requireContext(), "model").toString()
         map["plate_number"] =
             SharedPreference.getStringPref(requireContext(), "plate_number").toString()
-        map["qt_Type"] = "1"
+        map["qt_Type"] = SharedPreference.getStringPref(requireContext(),SharedPreference.qt_type).toString()
         map["pgmethod"] = paymentType
         map["alldata"] = ""
         map["xCardNum"] = binding.cardNumber.text.toString()

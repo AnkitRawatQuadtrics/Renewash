@@ -48,15 +48,17 @@ class PickAddOnsFragment : Fragment() {
         val id = arguments?.getString("id").toString()
         Log.e("ID", id)
         if (Common.checkForInternet(ctx)) {
-            if (id != "1") {
+            if (SharedPreference.getStringPref(requireContext(),SharedPreference.qt_type) != "1") {
                 binding.headerTextView.text = "Pick Addons"
                 binding.pickTv.text= "Pick Addons"
+                binding.buttonsLinearLayout.visibility= View.VISIBLE
                 model.getAddons(id, ctx).observe(viewLifecycleOwner, Observer<AddonPojo> { model ->
                     // update UI
                     callAddonAdapter(model.data)
                 })
 
             } else {
+                binding.buttonsLinearLayout.visibility= View.GONE
                 binding.headerTextView.text = "Pick Subscription"
                 binding.pickTv.text= "Pick Subscription"
                 model.getSubscription(id, ctx)

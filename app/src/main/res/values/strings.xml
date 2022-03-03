@@ -79,4 +79,22 @@
     <string name="message_title">Message*</string>
     <string name="address_title">Address*</string>
     <string name="phone_number_title">Phone Number*</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="forgot_your_password">Forgot Your Password?</string>
+    <string name="don_t_have_an_account_sign_in">Don\'t have an account? Sign In</string>
+    <string name="email_address">Email Address</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="new_password">New Password</string>
+    <string name="change_password">Change Password</string>
+    <string name="city_title">City *</string>
+    <string name="state_title">State *</string>
+    <string name="city">City</string>
+    <string name="state">State</string>
+    <string name="zip_code">Zip Code</string>
+    <string name="zip_code_title">Zip Code *</string>
+    <string name="login_now"><u>Login Now</u></string>
+    <string name="have_an_account_sign_in">Have an account? Sign in</string>
+    <string name="reset_password">Reset Password</string>
 </resources>

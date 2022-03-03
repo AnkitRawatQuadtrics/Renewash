@@ -46,7 +46,13 @@ class HomeFragment : Fragment() {
         binding.contactUsLinearLayout.setOnClickListener {
             Toast.makeText(requireContext(), "Coming Soon!!", Toast.LENGTH_SHORT).show()
         }
+        binding.loginTextView.setOnClickListener {
+            Navigation.findNavController(requireView())
+                .navigate(R.id.action_homeFragment_to_loginFragment)
+
+        }
     }
+
     override fun onResume() {
         super.onResume()
         requireView().isFocusableInTouchMode = true
