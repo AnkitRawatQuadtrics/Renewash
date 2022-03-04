@@ -23,12 +23,15 @@ import com.quadtric.renewash.models.carModel.ModelData
 import com.quadtric.renewash.models.carModel.ModelPojo
 import com.quadtric.renewash.models.makeByModel.MakeByData
 import com.quadtric.renewash.models.makeByModel.MakeByPojo
+import com.quadtric.renewash.models.vehicleTypeModel.VehicleTypePojo
 import com.quadtric.renewash.viewModels.VehicleInformationViewModel
+import com.quadtric.renewash.viewModels.VehicleTypeViewModel
 
 
 class AddVehicleDetailFragment : Fragment() {
     private lateinit var binding: FragmentAddVehicleDetailBinding
     private val model: VehicleInformationViewModel by viewModels()
+    private val modelVehicleType: VehicleTypeViewModel by viewModels()
     private var makeByName: String = ""
     private var modelName: String = ""
     private lateinit var makeById: String
@@ -42,15 +45,15 @@ class AddVehicleDetailFragment : Fragment() {
             binding.plateNumber.setText(getStringPref(ctx, plate_number).toString())
         }
         click()
-        if(Common.checkForInternet(ctx)) {
+        if (Common.checkForInternet(ctx)) {
             model.getMakeBy(ctx).observe(viewLifecycleOwner, Observer<MakeByPojo> { model ->
                 // update UI
                 binding.makeByTextView.setOnClickListener {
                     showMakeBy(model.data)
                 }
             })
-        }else{
-            Toast.makeText(ctx,"Please Check Your Internet Connection",Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(ctx, "Please Check Your Internet Connection", Toast.LENGTH_SHORT).show()
         }
 
         return binding.root
@@ -72,7 +75,8 @@ class AddVehicleDetailFragment : Fragment() {
         binding.nextButton.setOnClickListener {
             when {
                 makeByName.isEmpty() -> {
-                    Toast.makeText(activity, "Make by field is required.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Make by field is required.", Toast.LENGTH_SHORT)
+                        .show()
                 }
                 modelName.isEmpty() -> {
                     Toast.makeText(activity, "Model field is required.", Toast.LENGTH_SHORT).show()
@@ -96,7 +100,7 @@ class AddVehicleDetailFragment : Fragment() {
                 requireActivity(),
                 getStringPref(ctx, SharedPreference.vehicle_type).toString(),
                 getStringPref(ctx, SharedPreference.vehicle_package).toString(),
-                getStringPref(ctx,SharedPreference.service_name).toString(),
+                getStringPref(ctx, SharedPreference.service_name).toString(),
                 getStringPref(ctx, SharedPreference.date).toString(),
                 getStringPref(ctx, SharedPreference.time).toString(),
                 getStringPref(ctx, SharedPreference.total).toString()
@@ -112,6 +116,22 @@ class AddVehicleDetailFragment : Fragment() {
         popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
             binding.makeByTextView.text = item.title.toString()
             makeByName = item.title.toString()
+            modelVehicleType.getUsers(ctx, makeByName)
+                .observe(viewLifecycleOwner, Observer<VehicleTypePojo> { model ->
+                    // update UI
+                    SharedPreference.setStringPref(
+                        requireContext(),
+                        SharedPreference.vehicle_type,
+                        data[0].name
+                    )
+
+                    SharedPreference.setStringPref(
+                        requireContext(),
+                        SharedPreference.cat_id,
+                        data[0].id
+                    )
+                })
+            Log.e("VT_IDDD", getStringPref(requireContext(), SharedPreference.cat_id).toString())
             SharedPreference.setStringPref(
                 requireActivity(),
                 SharedPreference.make,

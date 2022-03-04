@@ -30,6 +30,7 @@ class VehicleInformationFragment : Fragment() {
     ): View {
         binding = FragmentVehicleInformationBinding.inflate(layoutInflater)
         click()
+/*
         if (Common.checkForInternet(ctx)) {
             model.getUsers(ctx).observe(viewLifecycleOwner, Observer<VehicleTypePojo> { model ->
                 // update UI
@@ -42,6 +43,7 @@ class VehicleInformationFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
         }
+*/
         return binding.root
     }
 

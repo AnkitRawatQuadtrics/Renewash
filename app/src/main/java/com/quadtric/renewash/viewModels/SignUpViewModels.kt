@@ -139,6 +139,7 @@ class SignUpViewModels : ViewModel() {
                 val signInResponse = CommonPojo()
                 Common.dismissLoadingProgress()
                 Log.e("TAG", "onFailure: " + t.message)
+                Toast.makeText(ctx, "onFailure: " + t.message, Toast.LENGTH_SHORT).show()
                 (ctx as Activity).onBackPressed()
                 mutableLiveData.value = signInResponse
             }

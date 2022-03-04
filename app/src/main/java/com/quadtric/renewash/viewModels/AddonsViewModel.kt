@@ -73,6 +73,7 @@ class AddonsViewModel : ViewModel() {
 
             override fun onFailure(call: Call<AddonPojo?>, t: Throwable) {
                 Log.e("TAG", "onFailure: " + t.message)
+                Toast.makeText(ctx, "onFailure: " + t.message, Toast.LENGTH_SHORT).show()
                 Common.dismissLoadingProgress()
                 (ctx as Activity).onBackPressed()
             }
@@ -131,6 +132,7 @@ class AddonsViewModel : ViewModel() {
             override fun onFailure(call: Call<SubscriptionPojo?>, t: Throwable) {
                 Log.e("TAG", "onFailure: " + t.message)
                 Common.dismissLoadingProgress()
+                Toast.makeText(ctx, "onFailure: " + t.message, Toast.LENGTH_SHORT).show()
                 (ctx as Activity).onBackPressed()
             }
         })

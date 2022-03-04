@@ -20,14 +20,16 @@ import retrofit2.Response
 class PackagesViewModel : ViewModel() {
     @SuppressLint("StaticFieldLeak")
     private lateinit var ctx:Context
+    private lateinit var vehicleTypeId:String
     private val packagePojo: MutableLiveData<PackagePojo> by lazy {
         MutableLiveData<PackagePojo>().also {
             loadPackages(it)
         }
     }
 
-    fun getPackages(context: Context): LiveData<PackagePojo> {
+    fun getPackages(context: Context,vId:String): LiveData<PackagePojo> {
         ctx = context
+        vehicleTypeId = vId
         return packagePojo
     }
 
@@ -36,7 +38,7 @@ class PackagesViewModel : ViewModel() {
         Common.showLoadingProgress(ctx as Activity)
         // Do an asynchronous operation to fetch users.
         val apiInterface: ApiInterface = ApiClient.getClient()!!.create(ApiInterface::class.java)
-        apiInterface.getPackages().enqueue(object :
+        apiInterface.getPackages(vehicleTypeId).enqueue(object :
             Callback<PackagePojo?> {
             override fun onResponse(
                 call: Call<PackagePojo?>,
@@ -70,6 +72,7 @@ class PackagesViewModel : ViewModel() {
 
             override fun onFailure(call: Call<PackagePojo?>, t: Throwable) {
                 Log.e("TAG", "onFailure: " + t.message)
+                Toast.makeText(ctx, "onFailure: " + t.message, Toast.LENGTH_SHORT).show()
                 (ctx as Activity).onBackPressed()
 
             }

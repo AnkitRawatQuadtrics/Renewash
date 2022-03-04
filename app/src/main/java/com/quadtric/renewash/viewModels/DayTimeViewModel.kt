@@ -69,6 +69,7 @@ class DayTimeViewModel : ViewModel() {
 
             override fun onFailure(call: Call<DayTimePojo?>, t: Throwable) {
                 Log.e("TAG", "onFailure: " + t.message)
+                Toast.makeText(ctx, "onFailure: " + t.message, Toast.LENGTH_SHORT).show()
                 (ctx as Activity).onBackPressed()
             }
         })

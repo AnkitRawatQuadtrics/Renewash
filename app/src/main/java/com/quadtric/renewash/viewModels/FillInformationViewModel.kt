@@ -97,6 +97,7 @@ class FillInformationViewModel : ViewModel() {
             override fun onFailure(call: Call<CommonPojo?>, t: Throwable) {
                 Common.dismissLoadingProgress()
                 Log.e("TAG", "onFailure: " + t.message)
+                Toast.makeText(ctx, "onFailure: " + t.message, Toast.LENGTH_SHORT).show()
                 (ctx as Activity).onBackPressed()
             }
         })
@@ -147,6 +148,7 @@ class FillInformationViewModel : ViewModel() {
                 val signInResponse = ApplyCouponPojo()
                 Common.dismissLoadingProgress()
                 Log.e("TAG", "onFailure: " + t.message)
+                Toast.makeText(ctx, "onFailure: " + t.message, Toast.LENGTH_SHORT).show()
                 (ctx as Activity).onBackPressed()
                 mutableLiveData.value = signInResponse
             }
@@ -207,6 +209,7 @@ class FillInformationViewModel : ViewModel() {
             override fun onFailure(call: Call<ApplyCouponPojo?>, t: Throwable) {
                 Common.dismissLoadingProgress()
                 Log.e("TAG", "onFailure: " + t.message)
+                Toast.makeText(ctx, "onFailure: " + t.message, Toast.LENGTH_SHORT).show()
                 (ctx as Activity).onBackPressed()
             }
         })

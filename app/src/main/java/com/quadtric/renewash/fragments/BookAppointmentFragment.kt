@@ -30,13 +30,17 @@ class BookAppointmentFragment : Fragment() {
             activity?.onBackPressed()
         }
         binding.oneTimeWashLinear.setOnClickListener {
+           /* Navigation.findNavController(requireView())
+                .navigate(R.id.action_bookAppointmentFragment_to_vehicleInformationFragment)*/
             Navigation.findNavController(requireView())
-                .navigate(R.id.action_bookAppointmentFragment_to_vehicleInformationFragment)
+                .navigate(R.id.action_bookAppointmentFragment_to_addVehicleDetailFragment)
             SharedPreference.setStringPref(requireContext(),SharedPreference.qt_type,"0")
         }
         binding.subscriptionLinear.setOnClickListener {
+          /*  Navigation.findNavController(requireView())
+                .navigate(R.id.action_bookAppointmentFragment_to_vehicleInformationFragment)*/
             Navigation.findNavController(requireView())
-                .navigate(R.id.action_bookAppointmentFragment_to_vehicleInformationFragment)
+                .navigate(R.id.action_bookAppointmentFragment_to_addVehicleDetailFragment)
             SharedPreference.setStringPref(requireContext(),SharedPreference.qt_type,"1")
         }
     }

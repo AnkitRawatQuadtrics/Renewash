@@ -70,6 +70,7 @@ class VehicleInformationViewModel : ViewModel() {
             override fun onFailure(call: Call<MakeByPojo?>, t: Throwable) {
                 Log.e("TAG", "onFailure: " + t.message)
                 Common.dismissLoadingProgress()
+                Toast.makeText(ctx, "onFailure: " + t.message, Toast.LENGTH_SHORT).show()
                 (ctx as Activity).onBackPressed()
             }
         })
@@ -128,6 +129,7 @@ class VehicleInformationViewModel : ViewModel() {
             override fun onFailure(call: Call<ModelPojo?>, t: Throwable) {
                 Log.e("TAG", "onFailure: " + t.message)
                 Common.dismissLoadingProgress()
+                Toast.makeText(ctx, "onFailure: " + t.message, Toast.LENGTH_SHORT).show()
                 (ctx as Activity).onBackPressed()
 
             }

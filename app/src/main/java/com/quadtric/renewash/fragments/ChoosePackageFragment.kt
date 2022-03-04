@@ -30,11 +30,18 @@ class ChoosePackageFragment : Fragment() {
     ): View {
         binding = FragmentChoosePackageBinding.inflate(layoutInflater)
         if (Common.checkForInternet(requireContext())) {
-            model.getPackages(ctx).observe(viewLifecycleOwner, Observer<PackagePojo> { model ->
+            model.getPackages(
+                ctx,
+                SharedPreference.getStringPref(requireContext(), SharedPreference.cat_id).toString()
+            ).observe(viewLifecycleOwner, Observer<PackagePojo> { model ->
                 // update UI
+                if (model.data.isNullOrEmpty()) {
+                    requireActivity().onBackPressed()
+                    Toast.makeText(ctx, "Package Not Available.", Toast.LENGTH_SHORT).show()
+                }
                 callPackageAdapter(model.data)
             })
-        }else {
+        } else {
             Toast.makeText(ctx, "Please Check Your Internet Connection.", Toast.LENGTH_SHORT).show()
         }
         click()
@@ -58,18 +65,20 @@ class ChoosePackageFragment : Fragment() {
         binding.backButton.setOnClickListener {
             activity?.onBackPressed()
         }
-       /* binding.interiorOnlyRelativeOut.setOnClickListener {
-            Navigation.findNavController(requireView())
-                .navigate(R.id.action_choosePackageFragment_to_pickAddOnsFragment)
-        }*/
+        /* binding.interiorOnlyRelativeOut.setOnClickListener {
+             Navigation.findNavController(requireView())
+                 .navigate(R.id.action_choosePackageFragment_to_pickAddOnsFragment)
+         }*/
         binding.summaryBottomSheet.setOnClickListener {
-            Common.showSummaryDialog(requireActivity(),
+            Common.showSummaryDialog(
+                requireActivity(),
                 SharedPreference.getStringPref(ctx, SharedPreference.vehicle_type).toString(),
                 SharedPreference.getStringPref(ctx, SharedPreference.vehicle_package).toString(),
-                SharedPreference.getStringPref(ctx,SharedPreference.service_name).toString(),
+                SharedPreference.getStringPref(ctx, SharedPreference.service_name).toString(),
                 SharedPreference.getStringPref(ctx, SharedPreference.date).toString(),
                 SharedPreference.getStringPref(ctx, SharedPreference.time).toString(),
-                SharedPreference.getStringPref(ctx, SharedPreference.total).toString())
+                SharedPreference.getStringPref(ctx, SharedPreference.total).toString()
+            )
         }
     }
 }

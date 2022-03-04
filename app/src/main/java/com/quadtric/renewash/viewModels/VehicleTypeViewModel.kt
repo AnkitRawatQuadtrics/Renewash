@@ -18,14 +18,16 @@ import retrofit2.Response
 
 class VehicleTypeViewModel : ViewModel() {
     private lateinit var ctx: Context
+    private lateinit var makeBy: String
     private val vehicleTypePojo: MutableLiveData<VehicleTypePojo> by lazy {
         MutableLiveData<VehicleTypePojo>().also {
             loadUsers(it)
         }
     }
 
-    fun getUsers(context: Context): LiveData<VehicleTypePojo> {
+    fun getUsers(context: Context,make:String): LiveData<VehicleTypePojo> {
         ctx = context
+        makeBy = make
         return vehicleTypePojo
     }
 
@@ -34,7 +36,7 @@ class VehicleTypeViewModel : ViewModel() {
         Common.showLoadingProgress(ctx as Activity)
         // Do an asynchronous operation to fetch users.
         val apiInterface: ApiInterface = ApiClient.getClient()!!.create(ApiInterface::class.java)
-        apiInterface.getVehicleType().enqueue(object :
+        apiInterface.getVehicleType(makeBy).enqueue(object :
             Callback<VehicleTypePojo?> {
             override fun onResponse(
                 call: Call<VehicleTypePojo?>,
@@ -68,6 +70,7 @@ class VehicleTypeViewModel : ViewModel() {
             override fun onFailure(call: Call<VehicleTypePojo?>, t: Throwable) {
                 Log.e("TAG", "onFailure: " + t.message)
                 Common.dismissLoadingProgress()
+                Toast.makeText(ctx, "onFailure: " + t.message, Toast.LENGTH_SHORT).show()
                 (ctx as Activity).onBackPressed()
             }
         })

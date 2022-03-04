@@ -27,7 +27,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class CarWashDateTimeFragment : Fragment(), DayDateAdapter.DateClick {
+class CarWashDateTimeFragment : Fragment()/*, DayDateAdapter.DateClick */{
     private lateinit var binding: FragmentCarWashDateTimeBinding
     private val model: DayDateViewModel by viewModels()
     private lateinit var ctx: Context
@@ -39,15 +39,15 @@ class CarWashDateTimeFragment : Fragment(), DayDateAdapter.DateClick {
     ): View {
         binding = FragmentCarWashDateTimeBinding.inflate(layoutInflater)
         showCalender()
-        if (Common.checkForInternet(requireContext())) {
+      /*  if (Common.checkForInternet(requireContext())) {
             model.getDayDate(ctx).observe(viewLifecycleOwner, Observer<DayDatePojo> { model ->
 //                callDayDateAdapter(model.data)
             })
         } else {
             Toast.makeText(ctx, "Please Check Your Internet Connection.", Toast.LENGTH_SHORT).show()
-        }
+        }*/
         click()
-        initTimeAdapter()
+//        initTimeAdapter()
         return binding.root
     }
 
@@ -88,22 +88,22 @@ class CarWashDateTimeFragment : Fragment(), DayDateAdapter.DateClick {
 //        binding.dayDateRecyclerView.adapter = dayDateAdapter
 //    }
 
-    private fun initTimeAdapter() {
+   /* private fun initTimeAdapter() {
         timeAdapter = TimeAdapter(ctx)
         val gridLayoutManager = GridLayoutManager(requireContext(), 3)
         binding.timeRecyclerView.layoutManager =
             gridLayoutManager // set LayoutManager to RecyclerView
         binding.timeRecyclerView.itemAnimator = DefaultItemAnimator()
         binding.timeRecyclerView.adapter = timeAdapter
-    }
+    }*/
 
-    @SuppressLint("NotifyDataSetChanged")
+   /* @SuppressLint("NotifyDataSetChanged")
     private fun callTimeAdapter(list: ArrayList<TimeData>) {
         binding.timeRecyclerView.post {
             timeAdapter.timeData = list
             timeAdapter.notifyDataSetChanged()
         }
-    }
+    }*/
 
     private fun click() {
         binding.backButton.setOnClickListener {
@@ -111,12 +111,12 @@ class CarWashDateTimeFragment : Fragment(), DayDateAdapter.DateClick {
         }
 
         binding.nextButton.setOnClickListener {
-            if (SharedPreference.getStringPref(ctx, "date_time")!!.isEmpty()) {
+          /*  if (SharedPreference.getStringPref(ctx, "date_time")!!.isEmpty()) {
                 Toast.makeText(ctx, "Please Select Date and Time.", Toast.LENGTH_SHORT).show()
-            } else {
+            } else {*/
                 Navigation.findNavController(requireView())
                     .navigate(R.id.action_carWashDateTimeFragment_to_fillInformationFragment)
-            }
+//            }
         }
         binding.summaryBottomSheet.setOnClickListener {
             Common.showSummaryDialog(
@@ -133,7 +133,7 @@ class CarWashDateTimeFragment : Fragment(), DayDateAdapter.DateClick {
         }
     }
 
-    override fun dateClick(dayDateData: ArrayList<TimeData>) {
+    /*override fun dateClick(dayDateData: ArrayList<TimeData>) {
         callTimeAdapter(dayDateData)
-    }
+    }*/
 }

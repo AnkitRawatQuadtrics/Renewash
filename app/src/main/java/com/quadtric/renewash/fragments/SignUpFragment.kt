@@ -2,12 +2,17 @@ package com.quadtric.renewash.fragments
 
 import android.os.Bundle
 import android.text.InputFilter
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
@@ -26,6 +31,30 @@ class SignUpFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSignUpBinding.inflate(layoutInflater)
+        val builder = SpannableStringBuilder()
+        val grey = "Have an account?"
+        val greySpan = SpannableString(grey)
+        greySpan.setSpan(
+            ForegroundColorSpan(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.dark_grey
+                )
+            ), 0, grey.length, 0
+        )
+        builder.append(greySpan)
+        val blue = " Sign In"
+        val whiteSpannable = SpannableString(blue)
+        whiteSpannable.setSpan(
+            ForegroundColorSpan(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.blue
+                )
+            ), 0, blue.length, 0
+        )
+        builder.append(whiteSpannable)
+        binding.signInTexView.setText(builder, TextView.BufferType.SPANNABLE)
         clicks()
         ignoreSpecialChars()
         return binding.root
@@ -92,11 +121,11 @@ class SignUpFragment : Fragment() {
                 Toast.LENGTH_SHORT
             )
                 .show()
-        } /*else if (binding.passwordEditText.text != binding.confirmPasswordEditText.text) {
+        } else if (binding.passwordEditText.text.toString() != binding.confirmPasswordEditText.text.toString()) {
             binding.confirmPasswordEditText.error = "Password Not Matched"
             Toast.makeText(requireContext(), "Password Not Matched", Toast.LENGTH_SHORT)
                 .show()
-        } */else if (binding.addressEditText.text.isEmpty()) {
+        } else if (binding.addressEditText.text.isEmpty()) {
             binding.addressEditText.error = "Address Field is Required"
             Toast.makeText(requireContext(), "Address Field is Required", Toast.LENGTH_SHORT)
                 .show()
@@ -104,7 +133,7 @@ class SignUpFragment : Fragment() {
             if (Common.checkForInternet(requireContext())) {
                 addUserInformation()
                 model.signInApi(
-                    map,requireView(),requireContext()
+                    map, requireView(), requireContext()
                 ).observe(viewLifecycleOwner, Observer<CommonPojo?> { model ->
                     // update UI
                     Log.e("SIGN_UP_MESSAGE", model.message.toString())
@@ -121,6 +150,9 @@ class SignUpFragment : Fragment() {
 
     private fun clicks() {
         binding.backButton.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+        binding.signInTexView.setOnClickListener {
             requireActivity().onBackPressed()
         }
         binding.signUpBtn.setOnClickListener {

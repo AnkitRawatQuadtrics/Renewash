@@ -53,8 +53,8 @@ internal class VehicleTypeAdapter(
                 SharedPreference.cat_id,
                 vehicleTypeData[position].vtId
             )
-            Navigation.findNavController(view)
-                .navigate(R.id.action_vehicleInformationFragment_to_addVehicleDetailFragment)
+          /*  Navigation.findNavController(view)
+                .navigate(R.id.action_vehicleInformationFragment_to_addVehicleDetailFragment)*/
         }
         Glide.with(context)
             .load(Common.BaseImageUrl + vehicleTypeData[position].vtImage)

@@ -28,26 +28,19 @@
         android:name="com.quadtric.renewash.fragments.BookAppointmentFragment"
         android:label="fragment_book_appointment"
         tools:layout="@layout/fragment_book_appointment">
-        <action
-            android:id="@+id/action_bookAppointmentFragment_to_vehicleInformationFragment"
-            app:destination="@id/vehicleInformationFragment"
-            app:enterAnim="@anim/fad_in"
-            app:exitAnim="@anim/fad_out" />
         <argument
             android:name="id"
             app:argType="string"
             android:defaultValue="null" />
+        <action
+            android:id="@+id/action_bookAppointmentFragment_to_addVehicleDetailFragment"
+            app:destination="@id/addVehicleDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/vehicleInformationFragment"
         android:name="com.quadtric.renewash.fragments.VehicleInformationFragment"
         android:label="fragment_vehicle_information"
         tools:layout="@layout/fragment_vehicle_information">
-        <action
-            android:id="@+id/action_vehicleInformationFragment_to_addVehicleDetailFragment"
-            app:destination="@id/addVehicleDetailFragment"
-            app:enterAnim="@anim/fad_in"
-            app:exitAnim="@anim/fad_out" />
         <argument
             android:name="vehicle_type"
             app:argType="string"

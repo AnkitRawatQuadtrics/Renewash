@@ -65,7 +65,7 @@ class ChangePasswordFragment : Fragment() {
 
                     else -> {
                         if (Common.checkForInternet(requireContext())) {
-                            map["u_username"] = emailEditText.text.toString()
+                            map["u_email"] = emailEditText.text.toString()
                             model.forgotPassword(
                                 map,requireView(),requireContext()
                             ).observe(viewLifecycleOwner, Observer<CommonPojo?> { model ->

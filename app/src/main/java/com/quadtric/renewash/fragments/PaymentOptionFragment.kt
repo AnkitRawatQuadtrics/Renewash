@@ -89,10 +89,16 @@ class PaymentOptionFragment : Fragment() {
         map["bk_fname"] = requireArguments().getString("first_name").toString()
         map["bk_lname"] = requireArguments().getString("last_name").toString()
         map["bk_email"] = requireArguments().getString("email").toString()
+        map["user_id"] = "1"
+        map["bk_password"] = requireArguments().getString("password").toString()
         map["bk_phone"] = requireArguments().getString("phone_number").toString()
         map["bk_message"] = requireArguments().getString("message").toString()
         map["bk_address"] = requireArguments().getString("address").toString()
-        map["dates"] = SharedPreference.getStringPref(requireContext(), "date_time").toString()
+        map["bk_city"] = requireArguments().getString("city").toString()
+        map["bk_state"] = requireArguments().getString("state").toString()
+        map["bk_zipcode"] = requireArguments().getString("zip_code").toString()
+//        map["dates"] = SharedPreference.getStringPref(requireContext(), "date_time").toString()
+        map["dates"] = "2022-03-01 11:30:00"
         map["bk_cat_id"] = SharedPreference.getStringPref(requireContext(), "cat_id").toString()
         map["bk_ser_id"] = SharedPreference.getStringPref(requireContext(), "service_id").toString()
         map["bk_cat_name"] =
@@ -109,13 +115,16 @@ class PaymentOptionFragment : Fragment() {
         map["model"] = SharedPreference.getStringPref(requireContext(), "model").toString()
         map["plate_number"] =
             SharedPreference.getStringPref(requireContext(), "plate_number").toString()
-        map["qt_Type"] = SharedPreference.getStringPref(requireContext(),SharedPreference.qt_type).toString()
+        map["qt_Type"] =
+            SharedPreference.getStringPref(requireContext(), SharedPreference.qt_type).toString()
         map["pgmethod"] = paymentType
         map["alldata"] = ""
         map["xCardNum"] = binding.cardNumber.text.toString()
         map["xExpM"] = binding.expiryMonth.text.toString()
         map["xExpY"] = binding.expiryYear.text.toString()
         map["xCVV"] = binding.cvv.text.toString()
+        map["device_type"] = "Android"
+        map["device_token"] = "1"
     }
 
     private fun click() {
@@ -132,7 +141,7 @@ class PaymentOptionFragment : Fragment() {
             } else {
                 giftCardBuilder.append(binding.giftCardNumber.text.toString() + ",")
                 couponCode = giftCardBuilder.toString().dropLast(1)
-                model.getMutableData(requireContext(),couponCode)
+                model.getMutableData(requireContext(), couponCode)
                     .observe(viewLifecycleOwner, Observer<ApplyCouponPojo?> { model ->
                         if (model.data.size != 0) {
                             binding.giftCardNumber.setText("")

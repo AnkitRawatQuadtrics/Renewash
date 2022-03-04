@@ -2,6 +2,7 @@
     <string name="app_name">Renewash</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="api_key">AIzaSyAe89wSeaCjapEyZ6iLO_XD90tkijfD0NU</string>
     <string name="welcome_to_renewash">Welcome To Renewash</string>
     <string name="that_new_feel_again">That New Feel Again</string>
     <string name="book_appointment">Book Appointment</string>
@@ -35,10 +36,10 @@
     <string name="tyres_mirrors">Tyres, Mirrors</string>
     <string name="purchase_gift_card">Purchase Gift Card</string>
     <string name="fill_your_information">Fill your information</string>
-    <string name="email">Email Id*</string>
-    <string name="company_name">Company Name*</string>
-    <string name="first_name">First Name*</string>
-    <string name="last_name">Last Name*</string>
+    <string name="email">Email Address *</string>
+    <string name="company_name">Company Name</string>
+    <string name="first_name">First Name *</string>
+    <string name="last_name">Last Name *</string>
     <string name="appointment_message">We will confirm you appointment with you by phone or e-mail within 24 hours of receiving your request.</string>
     <string name="i_agree_terms_and_conditions">I agree Terms and Conditions</string>
     <string name="select_payment_type">Select Payment Type</string>
@@ -76,11 +77,12 @@
     <string name="phone_number">Phone Number</string>
     <string name="address">Address</string>
     <string name="message">Message</string>
-    <string name="message_title">Message*</string>
-    <string name="address_title">Address*</string>
+    <string name="message_title">Message *</string>
+    <string name="address_title">Address *</string>
     <string name="phone_number_title">Phone Number*</string>
     <string name="login">Login</string>
     <string name="password">Password</string>
+    <string name="password_title">Password *</string>
     <string name="forgot_your_password">Forgot Your Password?</string>
     <string name="don_t_have_an_account_sign_in">Don\'t have an account? Sign In</string>
     <string name="email_address">Email Address</string>
@@ -97,4 +99,6 @@
     <string name="login_now"><u>Login Now</u></string>
     <string name="have_an_account_sign_in">Have an account? Sign in</string>
     <string name="reset_password">Reset Password</string>
+    <string name="we_will_send_you_a_link_to_this_email_to_change_your_password">We will send you a link to this email to change your password.</string>
+    <string name="additional_info">Additional Info</string>
 </resources>

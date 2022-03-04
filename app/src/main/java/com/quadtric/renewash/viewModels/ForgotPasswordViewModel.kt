@@ -65,6 +65,7 @@ class ForgotPasswordViewModel:ViewModel() {
                 Common.dismissLoadingProgress()
                 Log.e("TAG", "onFailure: " + t.message)
                 (ctx as Activity).onBackPressed()
+                Toast.makeText(ctx, "onFailure: " + t.message, Toast.LENGTH_SHORT).show()
                 mutableLiveData.value = signInResponse
             }
         })
