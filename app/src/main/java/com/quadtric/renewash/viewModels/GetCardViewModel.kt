@@ -12,41 +12,37 @@ import com.google.gson.Gson
 import com.quadtric.renewash.apiRelatedFiles.ApiClient
 import com.quadtric.renewash.apiRelatedFiles.ApiInterface
 import com.quadtric.renewash.commonFunctions.Common
-import com.quadtric.renewash.models.dayDateModel.DayDatePojo
+import com.quadtric.renewash.models.dayTimeModels.DayTimePojo
+import com.quadtric.renewash.models.getCardModel.GetCardPojo
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DayDateViewModel : ViewModel() {
+class GetCardViewModel : ViewModel() {
 
-    @SuppressLint("StaticFieldLeak")
-    private lateinit var ctx: Context
-    private val dayDatePojo: MutableLiveData<DayDatePojo> by lazy {
-        MutableLiveData<DayDatePojo>().also {
-            loadDates(it)
-        }
-    }
+     private val modelPojo= MutableLiveData<GetCardPojo>()
 
-    fun getDayDate(context: Context):LiveData<DayDatePojo> {
-        ctx = context
-        return dayDatePojo
+    val getCard:LiveData<GetCardPojo> = modelPojo
+
+    fun getCardApi(context: Context,user_id: String) {
+        loadCard(context,user_id)
     }
 
     /** CALL API HERE */
-    private fun loadDates(mutableLiveData: MutableLiveData<DayDatePojo>) {
+    private fun loadCard(ctx: Context,user_id:String) {
         Common.showLoadingProgress(ctx as Activity)
         // Do an asynchronous operation to fetch users.
         val apiInterface: ApiInterface = ApiClient.getClient()!!.create(ApiInterface::class.java)
-        apiInterface.getDateTime().enqueue(object :
-            Callback<DayDatePojo?> {
+        apiInterface.getCardData(user_id).enqueue(object :
+            Callback<GetCardPojo?> {
             override fun onResponse(
-                call: Call<DayDatePojo?>,
-                response: Response<DayDatePojo?>
+                call: Call<GetCardPojo?>,
+                response: Response<GetCardPojo?>
             ) {
                 when {
                     response.code() == 200 -> {
                         Common.dismissLoadingProgress()
-                        mutableLiveData.value = response.body()
+                        modelPojo.value = response.body()
                     }
                     response.code() == 401 -> {
                         Common.dismissLoadingProgress()
@@ -68,12 +64,13 @@ class DayDateViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<DayDatePojo?>, t: Throwable) {
+            override fun onFailure(call: Call<GetCardPojo?>, t: Throwable) {
                 Log.e("TAG", "onFailure: " + t.message)
                 Common.dismissLoadingProgress()
                 Toast.makeText(ctx, "onFailure: " + t.message, Toast.LENGTH_SHORT).show()
-                (ctx as Activity).onBackPressed()
+//                (ctx as Activity).onBackPressed()
             }
         })
     }
+
 }

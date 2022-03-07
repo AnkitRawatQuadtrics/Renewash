@@ -7,6 +7,7 @@
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/drawable/bg_gradient.xml" value="0.1" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/drawable/bottomsheet_back.xml" value="0.1" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/drawable/button_back.xml" value="0.1" />
+        <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/drawable/card_layout.xml" value="0.19" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/drawable/edittext_back.xml" value="0.1" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/drawable/light_blue_back.xml" value="0.2085" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/drawable/light_blue_circle.xml" value="0.1" />
@@ -24,7 +25,9 @@
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/activity_home.xml" value="0.28986746472851643" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/activity_main.xml" value="0.28986746472851643" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/addons_layout.xml" value="0.3248638838475499" />
+        <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/card_layout.xml" value="0.2868747327917914" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/date_layout.xml" value="0.28986746472851643" />
+        <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/dlg_logout.xml" value="0.2832418742085268" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/dlg_progress.xml" value="0.28986746472851643" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/fragment_add_vehicle_detail.xml" value="0.28986746472851643" />
         <entry key="..\:/Users/dheer/Desktop/ANDROID PROJECTS/Renewash/app/src/main/res/layout/fragment_book_appointment.xml" value="0.28986746472851643" />

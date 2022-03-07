@@ -77,20 +77,16 @@ class VehicleInformationViewModel : ViewModel() {
     }
 
 
-    private lateinit var name: String
-    private val modelPojo: MutableLiveData<ModelPojo> by lazy {
-        MutableLiveData<ModelPojo>().also {
-            loadModel(it, name)
-        }
-    }
+    private val modelPojo= MutableLiveData<ModelPojo>()
 
-    fun getModel(model: String): LiveData<ModelPojo> {
-        name = model
-        return modelPojo
+    val selectModelData:LiveData<ModelPojo> = modelPojo
+
+    fun getModel(name: String) {
+        loadModel(name)
     }
 
     /** CALL API HERE */
-    private fun loadModel(mutableLiveData: MutableLiveData<ModelPojo>, name: String) {
+    private fun loadModel(name:String) {
         Common.showLoadingProgress(ctx as Activity)
         // Do an asynchronous operation to fetch users.
         val apiInterface: ApiInterface = ApiClient.getClient()!!.create(ApiInterface::class.java)
@@ -103,7 +99,7 @@ class VehicleInformationViewModel : ViewModel() {
                 when {
                     response.code() == 200 -> {
                         Common.dismissLoadingProgress()
-                        mutableLiveData.value = response.body()
+                        modelPojo.value = response.body()
                         Log.e("VT_RESPONSE", Gson().toJson(response.body()))
                     }
                     response.code() == 401 -> {

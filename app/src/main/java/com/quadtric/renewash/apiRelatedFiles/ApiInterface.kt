@@ -9,6 +9,8 @@ import com.quadtric.renewash.models.carModel.ModelPojo
 import com.quadtric.renewash.models.dayDateModel.DayDatePojo
 import com.quadtric.renewash.models.dayTimeModels.DayTimePojo
 import com.quadtric.renewash.models.fillinformationModels.CommonPojo
+import com.quadtric.renewash.models.getCardModel.GetCardPojo
+import com.quadtric.renewash.models.loginModels.LoginPojo
 import com.quadtric.renewash.models.makeByModel.MakeByPojo
 import com.quadtric.renewash.models.packageModel.PackagePojo
 import com.quadtric.renewash.models.pamentTypeModel.PaymentTypePojo
@@ -42,8 +44,14 @@ ApiInterface {
 
     @GET("/renewashN/api/vechicletype")
     fun getVehicleType(
-        @Query("makeby_name") makeby_name: String?
+        @Query("make") make: String?,
+        @Query("name") name: String?
     ): Call<VehicleTypePojo>
+
+    @GET("/renewashN/api/getcarddata")
+    fun getCardData(
+        @Query("user_id") user_id: String?
+    ): Call<GetCardPojo>
 
     @GET("/renewashN/api/subscriptions")
     fun getSubscription(
@@ -70,7 +78,13 @@ ApiInterface {
     @POST("/renewashN/api/add_booking")
     @FormUrlEncoded
     fun postUserInformation(
-        @FieldMap map: Map<String, Any>
+        @FieldMap map: Map<String, String>
+    ): Call<CommonPojo>?
+
+    @POST("/renewashN/api/savecard")
+    @FormUrlEncoded
+    fun saveCard(
+        @FieldMap map: Map<String, String>
     ): Call<CommonPojo>?
 
     @POST("/renewashN/api/giftcard")
@@ -85,7 +99,7 @@ ApiInterface {
         @FieldMap map: Map<String, String>
         /*  @Field("u_username") username: String?,
           @Field("u_password") password: String?*/
-    ): Call<CommonPojo>?
+    ): Call<LoginPojo>?
 
     @POST("/renewashN/api/signup_user")
     @FormUrlEncoded

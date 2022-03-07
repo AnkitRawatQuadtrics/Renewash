@@ -97,8 +97,14 @@
     <string name="zip_code">Zip Code</string>
     <string name="zip_code_title">Zip Code *</string>
     <string name="login_now"><u>Login Now</u></string>
+    <string name="log_out"><u>Log Out</u></string>
     <string name="have_an_account_sign_in">Have an account? Sign in</string>
     <string name="reset_password">Reset Password</string>
     <string name="we_will_send_you_a_link_to_this_email_to_change_your_password">We will send you a link to this email to change your password.</string>
     <string name="additional_info">Additional Info</string>
+    <string name="logout">Do you want to logout?</string>
+    <string name="logout_btn">Logout</string>
+    <string name="cancel">cancel</string>
+    <string name="yes">Yes</string>
+    <string name="stars">**** ***** ****</string>
 </resources>

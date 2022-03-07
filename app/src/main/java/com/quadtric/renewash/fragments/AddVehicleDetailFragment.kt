@@ -34,6 +34,7 @@ class AddVehicleDetailFragment : Fragment() {
     private val modelVehicleType: VehicleTypeViewModel by viewModels()
     private var makeByName: String = ""
     private var modelName: String = ""
+    private var position: Int = 0
     private lateinit var makeById: String
     private lateinit var ctx: Context
     override fun onCreateView(
@@ -55,6 +56,47 @@ class AddVehicleDetailFragment : Fragment() {
         } else {
             Toast.makeText(ctx, "Please Check Your Internet Connection", Toast.LENGTH_SHORT).show()
         }
+
+        model.selectModelData.observe(viewLifecycleOwner, Observer<ModelPojo?> { model ->
+            // update UI
+            binding.modelTextView.setOnClickListener {
+                showModel(model.data)
+            }
+
+        })
+        modelVehicleType.vehicleTypeData.observe(viewLifecycleOwner, Observer<VehicleTypePojo> { model ->
+            // update UI
+            if (model.data==null) {
+                Toast.makeText(
+                    requireContext(),
+                    "Vehicle Type Data is Null.",
+                    Toast.LENGTH_SHORT
+                ).show()
+                SharedPreference.setStringPref(
+                    requireContext(),
+                    SharedPreference.vehicle_type,
+                    ""
+                )
+
+                SharedPreference.setStringPref(
+                    requireContext(),
+                    SharedPreference.cat_id,
+                  ""
+                )
+            } else {
+                SharedPreference.setStringPref(
+                    requireContext(),
+                    SharedPreference.vehicle_type,
+                    model.data?.vtName
+                )
+
+                SharedPreference.setStringPref(
+                    requireContext(),
+                    SharedPreference.cat_id,
+                    model.data?.vtId
+                )
+            }
+        })
 
         return binding.root
     }
@@ -116,6 +158,9 @@ class AddVehicleDetailFragment : Fragment() {
         popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
             binding.makeByTextView.text = item.title.toString()
             makeByName = item.title.toString()
+
+            model.getModel(makeByName)
+/*
             modelVehicleType.getUsers(ctx, makeByName)
                 .observe(viewLifecycleOwner, Observer<VehicleTypePojo> { model ->
                     // update UI
@@ -131,18 +176,22 @@ class AddVehicleDetailFragment : Fragment() {
                         data[0].id
                     )
                 })
+*/
             Log.e("VT_IDDD", getStringPref(requireContext(), SharedPreference.cat_id).toString())
             SharedPreference.setStringPref(
                 requireActivity(),
                 SharedPreference.make,
                 makeByName
             )
-            model.getModel(makeByName).observe(viewLifecycleOwner, Observer<ModelPojo> { model ->
+
+/*
+            modelCarModel.loadModel(requireContext(),makeByName).observe(viewLifecycleOwner, Observer<ModelPojo?> { model ->
                 // update UI
                 binding.modelTextView.setOnClickListener {
                     showModel(model.data)
                 }
             })
+*/
             Log.d("make_by_id", item.itemId.toString())
             for (j in data.indices) {
                 if (data[j].name!! == item.title) {
@@ -169,7 +218,15 @@ class AddVehicleDetailFragment : Fragment() {
                 SharedPreference.model,
                 modelName
             )
-            Log.d("make_by_id", item.itemId.toString())
+            for (j in data.indices) {
+                if (data[j].name!! == modelName) {
+                    position = j
+                    Log.e("ITEM_POSITION", position.toString())
+                }
+            }
+            modelVehicleType.getVehicleType(requireContext(),makeByName,modelName)
+
+            Log.d("VT_ID", SharedPreference.getStringPref(requireContext(),SharedPreference.cat_id).toString())
             true
         })
         popupMenu.show()

@@ -15,6 +15,7 @@ import com.quadtric.renewash.apiRelatedFiles.ApiClient
 import com.quadtric.renewash.apiRelatedFiles.ApiInterface
 import com.quadtric.renewash.commonFunctions.Common
 import com.quadtric.renewash.models.fillinformationModels.CommonPojo
+import com.quadtric.renewash.models.loginModels.LoginPojo
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,16 +25,16 @@ class LoginViewModel : ViewModel() {
         mapData: HashMap<String, String>/*email:String,password:String*/,
         view: View,
         ctx: Context
-    ): MutableLiveData<CommonPojo?> {
+    ): MutableLiveData<LoginPojo?> {
         Common.showLoadingProgress(ctx as Activity)
-        val mutableLiveData: MutableLiveData<CommonPojo?> = MutableLiveData<CommonPojo?>()
+        val mutableLiveData: MutableLiveData<LoginPojo?> = MutableLiveData<LoginPojo?>()
         val apiInterface: ApiInterface = ApiClient.getClient()!!.create(ApiInterface::class.java)
-        val call: Call<CommonPojo>? = apiInterface.login(mapData/*email,password*/)
+        val call: Call<LoginPojo>? = apiInterface.login(mapData/*email,password*/)
         Log.e("LOGIN_DATA", mapData.toString())
-        call!!.enqueue(object : Callback<CommonPojo?> {
+        call!!.enqueue(object : Callback<LoginPojo?> {
             override fun onResponse(
-                call: Call<CommonPojo?>,
-                response: Response<CommonPojo?>
+                call: Call<LoginPojo?>,
+                response: Response<LoginPojo?>
             ) {
                 when {
                     response.code() == 200 -> {
@@ -67,8 +68,8 @@ class LoginViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<CommonPojo?>, t: Throwable) {
-                val signInResponse = CommonPojo()
+            override fun onFailure(call: Call<LoginPojo?>, t: Throwable) {
+                val signInResponse = LoginPojo()
                 Common.dismissLoadingProgress()
                 Log.e("TAG", "onFailure: " + t.message)
                 Toast.makeText(ctx, "onFailure: " + t.message, Toast.LENGTH_SHORT).show()

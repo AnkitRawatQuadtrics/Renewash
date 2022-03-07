@@ -34,14 +34,14 @@ class BookAppointmentFragment : Fragment() {
                 .navigate(R.id.action_bookAppointmentFragment_to_vehicleInformationFragment)*/
             Navigation.findNavController(requireView())
                 .navigate(R.id.action_bookAppointmentFragment_to_addVehicleDetailFragment)
-            SharedPreference.setStringPref(requireContext(),SharedPreference.qt_type,"0")
+            SharedPreference.setStringPref(requireContext(),SharedPreference.qt_type,"1")
         }
         binding.subscriptionLinear.setOnClickListener {
           /*  Navigation.findNavController(requireView())
                 .navigate(R.id.action_bookAppointmentFragment_to_vehicleInformationFragment)*/
             Navigation.findNavController(requireView())
                 .navigate(R.id.action_bookAppointmentFragment_to_addVehicleDetailFragment)
-            SharedPreference.setStringPref(requireContext(),SharedPreference.qt_type,"1")
+            SharedPreference.setStringPref(requireContext(),SharedPreference.qt_type,"2")
         }
     }
 

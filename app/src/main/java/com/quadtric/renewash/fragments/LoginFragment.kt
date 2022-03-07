@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,9 +16,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.quadtric.renewash.R
 import com.quadtric.renewash.commonFunctions.Common
+import com.quadtric.renewash.commonFunctions.SharedPreference
 import com.quadtric.renewash.databinding.FragmentLoginBinding
-import com.quadtric.renewash.models.CommonResponse
-import com.quadtric.renewash.models.fillinformationModels.CommonPojo
+import com.quadtric.renewash.models.loginModels.LoginPojo
 import com.quadtric.renewash.viewModels.LoginViewModel
 
 class LoginFragment : Fragment() {
@@ -78,10 +77,12 @@ class LoginFragment : Fragment() {
                     map["u_password"] = binding.passwordEditText.text.toString()
                     model.loginApi(/*binding.emailEditText.text.toString(),binding.passwordEditText.text.toString()*/
                         map, requireView(), requireContext()
-                    ).observe(viewLifecycleOwner, Observer<CommonPojo?> { model ->
-                        // update UI
-
-                        Log.e("Login_MESSAGE", model.message.toString())
+                    ).observe(viewLifecycleOwner, Observer<LoginPojo?> { model ->
+                      SharedPreference.setStringPref(requireContext(),SharedPreference.user_id,model.data?.uId)
+                      SharedPreference.setStringPref(requireContext(),SharedPreference.name,model.data?.uName)
+                      SharedPreference.setStringPref(requireContext(),SharedPreference.phone_number,model.data?.uPhonenumber)
+                      SharedPreference.setStringPref(requireContext(),SharedPreference.u_address,model.data?.uAddress)
+                      SharedPreference.setStringPref(requireContext(),SharedPreference.userEmail,model.data?.uUsername)
                     })
                 } else {
                     Toast.makeText(

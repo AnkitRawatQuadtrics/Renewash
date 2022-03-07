@@ -31,6 +31,14 @@ class SharedPreference {
         var service_name: String = "service_name"
         var subscription_name: String = "subscription_name"
         var subscription_price: String = "subscription_price"
+        var user_id:String = "user_id"
+        var name:String = "name"
+        var userEmail:String = "userEmail"
+        var phone_number:String = "phone_number"
+        var u_address:String = "u_address"
+        var card_number:String = "card_number"
+        var exp_month:String = "exp_month"
+        var exp_year:String = "exp_year"
         const val PREF_NAME: String = "CarWashApp"
         const val PRIVATE_MODE: Int = 0
 

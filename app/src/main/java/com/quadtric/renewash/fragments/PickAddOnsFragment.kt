@@ -48,7 +48,7 @@ class PickAddOnsFragment : Fragment() {
         val id = arguments?.getString("id").toString()
         Log.e("ID", id)
         if (Common.checkForInternet(ctx)) {
-            if (SharedPreference.getStringPref(requireContext(),SharedPreference.qt_type) != "1") {
+            if (SharedPreference.getStringPref(requireContext(),SharedPreference.qt_type) == "1") {
                 binding.headerTextView.text = "Pick Addons"
                 binding.pickTv.text= "Pick Addons"
                 binding.buttonsLinearLayout.visibility= View.VISIBLE
@@ -57,7 +57,7 @@ class PickAddOnsFragment : Fragment() {
                     callAddonAdapter(model.data)
                 })
 
-            } else {
+            } else  if (SharedPreference.getStringPref(requireContext(),SharedPreference.qt_type) == "2"){
                 binding.buttonsLinearLayout.visibility= View.GONE
                 binding.headerTextView.text = "Pick Subscription"
                 binding.pickTv.text= "Pick Subscription"
@@ -106,12 +106,12 @@ class PickAddOnsFragment : Fragment() {
             activity?.onBackPressed()
         }
         binding.nextButton.setOnClickListener {
-            if (SharedPreference.getStringPref(ctx, "service_id")!!.isEmpty()) {
-                Toast.makeText(ctx, "Select Addon", Toast.LENGTH_SHORT).show()
-            } else {
+//            if (SharedPreference.getStringPref(ctx, "service_id")!!.isEmpty()) {
+//                Toast.makeText(ctx, "Select Addon", Toast.LENGTH_SHORT).show()
+//            } else {
                 Navigation.findNavController(requireView())
                     .navigate(R.id.action_pickAddOnsFragment_to_carWashDateTimeFragment)
-            }
+//            }
         }
         binding.summaryBottomSheet.setOnClickListener {
             Common.showSummaryDialog(

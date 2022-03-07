@@ -120,7 +120,11 @@
     <fragment
         android:id="@+id/selectSubscriptionTime"
         android:name="com.quadtric.renewash.fragments.SelectSubscriptionTime"
-        android:label="SelectSubscriptionTime" />
+        android:label="SelectSubscriptionTime" >
+        <action
+            android:id="@+id/action_selectSubscriptionTime_to_fillInformationFragment"
+            app:destination="@id/fillInformationFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.quadtric.renewash.fragments.LoginFragment"

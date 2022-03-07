@@ -10,27 +10,43 @@ import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.quadtric.renewash.adapters.CardAdapter
+import com.quadtric.renewash.adapters.SubscriptionAdapter
 import com.quadtric.renewash.commonFunctions.Common
 import com.quadtric.renewash.commonFunctions.SharedPreference
 import com.quadtric.renewash.databinding.FragmentPaymentOptionBinding
 import com.quadtric.renewash.models.applyCouponModel.ApplyCouponPojo
+import com.quadtric.renewash.models.carModel.ModelPojo
 import com.quadtric.renewash.models.fillinformationModels.CommonPojo
+import com.quadtric.renewash.models.getCardModel.GetCardData
+import com.quadtric.renewash.models.getCardModel.GetCardPojo
 import com.quadtric.renewash.models.pamentTypeModel.PaymentTypeData
 import com.quadtric.renewash.models.pamentTypeModel.PaymentTypePojo
+import com.quadtric.renewash.models.subscriptionModels.SubscriptionData
+import com.quadtric.renewash.models.subscriptionModels.SubscriptionPojo
 import com.quadtric.renewash.viewModels.FillInformationViewModel
+import com.quadtric.renewash.viewModels.GetCardViewModel
 import com.quadtric.renewash.viewModels.PaymentTypeViewModels
+import com.quadtric.renewash.viewModels.SaveCardViewModel
+import java.util.logging.SocketHandler
 
 
 class PaymentOptionFragment : Fragment() {
     private lateinit var binding: FragmentPaymentOptionBinding
     private val model: FillInformationViewModel by viewModels()
     private val modelPayment: PaymentTypeViewModels by viewModels()
+    private val saveCardModel: SaveCardViewModel by viewModels()
+    private val getCardModel: GetCardViewModel by viewModels()
+    private lateinit var cardAdapter: CardAdapter
     private var paymentType: String = ""
     private var couponCode: String = ""
     private var finalAMOUNT: Int = 0
     private var giftCardBuilder: StringBuilder = StringBuilder()
     private lateinit var paymentTypeId: String
     private var map: HashMap<String, String> = HashMap()
+    private var saveCardData: HashMap<String, String> = HashMap()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,6 +56,8 @@ class PaymentOptionFragment : Fragment() {
         Log.e("DATA", requireArguments().getString("first_name")!!)
         Log.e("DATA", requireArguments().getString("email")!!)
         Log.e("DATA", requireArguments().getString("message")!!)
+
+
         return binding.root
     }
 
@@ -63,9 +81,53 @@ class PaymentOptionFragment : Fragment() {
                 }
                 paymentType == "cash" -> {
                     binding.cardInformationLayout.visibility = View.GONE
+                    binding.cardRecView.visibility = View.GONE
                 }
                 paymentType == "cardknox" -> {
                     binding.cardInformationLayout.visibility = View.VISIBLE
+                    binding.cardRecView.visibility = View.VISIBLE
+                    if (SharedPreference.getStringPref(requireContext(), SharedPreference.user_id)
+                            .toString().isNotEmpty()
+                    ) {
+                        getCardModel.getCardApi(
+                            requireContext(),
+                            SharedPreference.getStringPref(
+                                requireContext(),
+                                SharedPreference.user_id
+                            ).toString()
+                        )
+                        getCardModel.getCard.observe(
+                            viewLifecycleOwner,
+                            Observer<GetCardPojo?> { model ->
+                                // update UI
+                                callCardAdapter(model.data)
+                            })
+
+                    }
+                    if (SharedPreference.getStringPref(
+                            requireContext(),
+                            SharedPreference.card_number
+                        ).toString().isNotEmpty()
+                    ) {
+                        binding.cardNumber.setText(
+                            SharedPreference.getStringPref(
+                                requireContext(),
+                                SharedPreference.card_number
+                            ).toString()
+                        )
+                        binding.expiryMonth.setText(
+                            SharedPreference.getStringPref(
+                                requireContext(),
+                                SharedPreference.exp_month
+                            ).toString()
+                        )
+                        binding.expiryYear.setText(
+                            SharedPreference.getStringPref(
+                                requireContext(),
+                                SharedPreference.exp_year
+                            ).toString()
+                        )
+                    }
                 }
                 else -> {
                     binding.cardInformationLayout.visibility = View.VISIBLE
@@ -85,22 +147,31 @@ class PaymentOptionFragment : Fragment() {
 
     }
 
+    private fun callCardAdapter(cardData: List<GetCardData>?) {
+        cardAdapter = CardAdapter(requireContext(), requireView(), cardData!!)
+        val layoutManager = LinearLayoutManager(requireContext())
+        binding.cardRecView.layoutManager = layoutManager
+        binding.cardRecView.itemAnimator = DefaultItemAnimator()
+        binding.cardRecView.adapter = cardAdapter
+    }
+
     private fun addDataInHasMap() {
         map["bk_fname"] = requireArguments().getString("first_name").toString()
         map["bk_lname"] = requireArguments().getString("last_name").toString()
         map["bk_email"] = requireArguments().getString("email").toString()
-        map["user_id"] = "1"
-        map["bk_password"] = requireArguments().getString("password").toString()
+        map["user_id"] =
+            SharedPreference.getStringPref(requireContext(), SharedPreference.user_id).toString()
+        map["u_password"] = requireArguments().getString("password").toString()
         map["bk_phone"] = requireArguments().getString("phone_number").toString()
         map["bk_message"] = requireArguments().getString("message").toString()
         map["bk_address"] = requireArguments().getString("address").toString()
         map["bk_city"] = requireArguments().getString("city").toString()
         map["bk_state"] = requireArguments().getString("state").toString()
         map["bk_zipcode"] = requireArguments().getString("zip_code").toString()
-//        map["dates"] = SharedPreference.getStringPref(requireContext(), "date_time").toString()
-        map["dates"] = "2022-03-01 11:30:00"
+        map["dates"] = SharedPreference.getStringPref(requireContext(), "date_time").toString()
         map["bk_cat_id"] = SharedPreference.getStringPref(requireContext(), "cat_id").toString()
         map["bk_ser_id"] = SharedPreference.getStringPref(requireContext(), "service_id").toString()
+        map["bk_company"] = requireArguments().getString("company_name").toString()
         map["bk_cat_name"] =
             SharedPreference.getStringPref(requireContext(), "vehicle_type").toString()
         map["bk_ser_name"] =
@@ -125,6 +196,17 @@ class PaymentOptionFragment : Fragment() {
         map["xCVV"] = binding.cvv.text.toString()
         map["device_type"] = "Android"
         map["device_token"] = "1"
+        if (SharedPreference.getStringPref(requireContext(), SharedPreference.user_id).toString()
+                .isNotEmpty() && paymentType == "cardknox"
+        ) {
+            saveCardData["user_id"] =
+                SharedPreference.getStringPref(requireContext(), SharedPreference.user_id)
+                    .toString()
+            saveCardData["card_number"] = binding.cardNumber.text.toString()
+            saveCardData["expiry_date"] =
+                binding.expiryMonth.text.toString() + "-" + binding.expiryYear.text.toString()
+            saveCardModel.saveCardApi(saveCardData, requireContext())
+        }
     }
 
     private fun click() {

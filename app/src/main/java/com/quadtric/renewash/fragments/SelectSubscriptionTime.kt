@@ -10,6 +10,8 @@ import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
+import com.quadtric.renewash.R
 import com.quadtric.renewash.databinding.FragmentSubscriptionTimeBinding
 import com.quadtric.renewash.models.dayTimeModels.DayTimeData
 import com.quadtric.renewash.models.dayTimeModels.DayTimePojo
@@ -38,13 +40,19 @@ class SelectSubscriptionTime : Fragment() {
     }
 
     private fun clicks() {
-
         binding.timeTextView.setOnClickListener {
             if (timeList.isNotEmpty()) {
                 showTime(timeList)
             } else {
                 Toast.makeText(requireContext(), "Select Day First", Toast.LENGTH_SHORT).show()
             }
+        }
+        binding.backButton.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+        binding.nextButton.setOnClickListener {
+            Navigation.findNavController(requireView())
+                .navigate(R.id.action_selectSubscriptionTime_to_fillInformationFragment)
         }
         binding.backButton.setOnClickListener {
             requireActivity().onBackPressed()

@@ -57,7 +57,33 @@ class FillInformationFragment : Fragment(), OnMapReadyCallback {
         Places.initialize(requireContext(), getString(R.string.api_key))
         mPlacesClient = Places.createClient(requireContext())
         ignoreSpecialChars()
-//        init()
+        if (SharedPreference.getStringPref(requireContext(), SharedPreference.user_id)!!
+                .isNotEmpty()
+        ) {
+            binding.firstName.setText(
+                SharedPreference.getStringPref(
+                    requireContext(),
+                    SharedPreference.name
+                ).toString()
+            )
+            binding.email.setText(
+                SharedPreference.getStringPref(
+                    requireContext(),
+                    SharedPreference.userEmail
+                ).toString()
+            )
+            binding.address.text =
+                SharedPreference.getStringPref(requireContext(), SharedPreference.u_address)
+                    .toString()
+            binding.phone.setText(
+                SharedPreference.getStringPref(
+                    requireContext(),
+                    SharedPreference.phone_number
+                ).toString()
+            )
+            binding.password.visibility = View.GONE
+            binding.passwordTitle.visibility = View.GONE
+        }
         return binding.root
     }
 
@@ -130,9 +156,15 @@ class FillInformationFragment : Fragment(), OnMapReadyCallback {
                                     zipCode = addresses[0].postalCode
                                 }
                             }
-                            binding.city.setText(cityName)
-                            binding.state.setText(stateName)
-                            binding.zipCode.setText(zipCode)
+                            /* binding.city.setText(cityName)
+                             binding.state.setText(stateName)
+                             binding.zipCode.setText(zipCode)*/
+                            Log.e(TAG, "CITY: $cityName")
+                            Log.e(TAG, "STATE: $stateName")
+
+                            binding.city.setText(addresses[0].locality)
+                            binding.state.setText(addresses[0].adminArea)
+                            binding.zipCode.setText(addresses[0].postalCode)
                             Log.e(TAG, "CITY: $cityName")
                             Log.e(TAG, "STATE: $stateName")
                         } catch (e: IOException) {
@@ -252,9 +284,30 @@ class FillInformationFragment : Fragment(), OnMapReadyCallback {
                     Toast.makeText(activity, "Please Enter Valid Phone Number.", Toast.LENGTH_SHORT)
                         .show()
                 }
+                SharedPreference.getStringPref(requireContext(), SharedPreference.user_id)
+                    .toString().isEmpty() && binding.password.text.toString().isEmpty() -> {
+                    binding.password.error = "Please Enter Password"
+                    Toast.makeText(activity, "Please Enter Password.", Toast.LENGTH_SHORT)
+                        .show()
+                }
                 binding.address.text.toString().isEmpty() -> {
                     binding.address.error = "Address field is required."
                     Toast.makeText(activity, "Address field is required.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                binding.city.text.toString().isEmpty() -> {
+                    binding.address.error = "City field is required."
+                    Toast.makeText(activity, "City field is required.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                binding.state.text.toString().isEmpty() -> {
+                    binding.address.error = "State field is required."
+                    Toast.makeText(activity, "State field is required.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                binding.zipCode.text.toString().isEmpty() -> {
+                    binding.address.error = "Zip Code field is required."
+                    Toast.makeText(activity, "Zip Code field is required.", Toast.LENGTH_SHORT)
                         .show()
                 }
                 !binding.termsAndCondition.isChecked -> {
@@ -265,6 +318,7 @@ class FillInformationFragment : Fragment(), OnMapReadyCallback {
                     val bundle = Bundle()
                     bundle.putString("first_name", binding.firstName.text.toString())
                     bundle.putString("last_name", binding.lastName.text.toString())
+                    bundle.putString("company_name", binding.companyName.text.toString())
                     bundle.putString("email", binding.email.text.toString())
                     bundle.putString("password", binding.password.text.toString())
                     bundle.putString("phone_number", binding.phone.text.toString())
